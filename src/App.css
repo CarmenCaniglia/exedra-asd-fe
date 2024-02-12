@@ -1,0 +1,8 @@
+.separatore{
+  display: inline-block;
+  margin: 0 10px;
+  align-self: center;
+}
+.img-home{
+  width: 70%;
+}
