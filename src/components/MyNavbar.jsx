@@ -1,7 +1,14 @@
 import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
 import logo from "../assets/loghi/LOGO copia 2.png";
+import Register from "./Register";
+import { useState } from "react";
 
 const MyNavbar = () => {
+  const [showRegister, setShowRegister] = useState(false);
+
+  const handleShowRegister = () => setShowRegister(true);
+  const handleCloseRegister = () => setShowRegister(false);
+
   return (
     <Container fluid>
       <Row>
@@ -51,11 +58,14 @@ const MyNavbar = () => {
             <Nav className="justify-content-end me-3">
               <Nav.Link href="#login">Login</Nav.Link>
               <div className="separatore"> | </div>
-              <Nav.Link href="#registrati">Registrati</Nav.Link>
+              <Nav.Link href="#registrati" onClick={handleShowRegister}>
+                Registrati
+              </Nav.Link>
             </Nav>
           </Col>
         </Navbar>
       </Row>
+      <Register show={showRegister} handleClose={handleCloseRegister} />
     </Container>
   );
 };
