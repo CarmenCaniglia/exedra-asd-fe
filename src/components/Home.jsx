@@ -1,5 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import image from "../assets/immagini/home1.png";
+import HomeCorsi from "./HomeCorsi";
 
 const Home = () => {
   return (
@@ -23,6 +24,7 @@ const Home = () => {
           </div>
         </Col>
       </Row>
+      <HomeCorsi />
     </Container>
   );
 };
