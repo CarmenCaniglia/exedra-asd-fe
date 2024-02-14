@@ -40,7 +40,7 @@ const Register = ({ show, handleClose }) => {
         }
         return response.json();
       })
-      .then((data) => {
+      .then(() => {
         handleClose();
         setEmail("");
         setPassword("");

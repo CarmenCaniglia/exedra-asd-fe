@@ -2,8 +2,9 @@ import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
 import logo from "../assets/loghi/LOGO copia 2.png";
 import Register from "./Register";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const MyNavbar = () => {
+const MyNavbar = ({ onRegisterClick }) => {
   const [showRegister, setShowRegister] = useState(false);
 
   const handleShowRegister = () => setShowRegister(true);
@@ -14,7 +15,7 @@ const MyNavbar = () => {
       <Row>
         <Navbar>
           <Col xs={4} md={3} lg={2} className="d-flex align-items-center">
-            <Navbar.Brand href="#home">
+            <Navbar.Brand as={Link} to="/">
               <img
                 alt="logo Exedra"
                 src={logo}
@@ -31,19 +32,19 @@ const MyNavbar = () => {
               className="justify-content-evenly"
             >
               <Nav>
-                <Nav.Link href="#home" className="mx-3">
+                <Nav.Link as={Link} to="/" className="mx-3">
                   Home
                 </Nav.Link>
-                <Nav.Link href="#servizi" className="mx-3">
+                <Nav.Link as={Link} to="/servizi" className="mx-3">
                   Servizi
                 </Nav.Link>
-                <Nav.Link href="#abbonamenti" className="mx-3">
+                <Nav.Link as={Link} to="/abbonamenti" className="mx-3">
                   Abbonamenti
                 </Nav.Link>
-                <Nav.Link href="#corsi" className="mx-3">
+                <Nav.Link as={Link} to="/corsi" className="mx-3">
                   Corsi
                 </Nav.Link>
-                <Nav.Link href="#shop" className="mx-3">
+                <Nav.Link as={Link} to="/shop" className="mx-3">
                   Shop
                 </Nav.Link>
               </Nav>
@@ -56,9 +57,11 @@ const MyNavbar = () => {
             className="d-flex justify-content-end align-items-center"
           >
             <Nav className="justify-content-end me-3">
-              <Nav.Link href="#login">Login</Nav.Link>
+              <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
               <div className="separatore"> | </div>
-              <Nav.Link href="#registrati" onClick={handleShowRegister}>
+              <Nav.Link href="#registrati" onClick={() => onRegisterClick()}>
                 Registrati
               </Nav.Link>
             </Nav>
