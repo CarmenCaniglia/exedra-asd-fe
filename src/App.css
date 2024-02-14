@@ -6,3 +6,11 @@
 .img-home{
   width: 70%;
 }
+
+.class-image{
+  width: 20%;
+}
+
+.class-card{
+  border: 1px solid black;
+}
