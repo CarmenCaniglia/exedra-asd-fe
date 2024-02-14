@@ -2,13 +2,23 @@ import { Col, Container, Nav, Navbar, Row } from "react-bootstrap";
 import logo from "../assets/loghi/LOGO copia 2.png";
 import Register from "./Register";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const MyNavbar = ({ onRegisterClick }) => {
+const MyNavbar = ({ onRegisterClick, onLoginClick }) => {
   const [showRegister, setShowRegister] = useState(false);
-
   const handleShowRegister = () => setShowRegister(true);
   const handleCloseRegister = () => setShowRegister(false);
+
+  const navigate = useNavigate();
+  const isAuthenticated = localStorage.getItem("token");
+  const userRole = localStorage.getItem("role");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    navigate("/");
+    window.location.reload();
+  };
 
   return (
     <Container fluid>
@@ -57,13 +67,34 @@ const MyNavbar = ({ onRegisterClick }) => {
             className="d-flex justify-content-end align-items-center"
           >
             <Nav className="justify-content-end me-3">
-              <Nav.Link as={Link} to="/login">
-                Login
-              </Nav.Link>
-              <div className="separatore"> | </div>
-              <Nav.Link href="#registrati" onClick={() => onRegisterClick()}>
-                Registrati
-              </Nav.Link>
+              {isAuthenticated ? (
+                <>
+                  {userRole === "ADMIN" && (
+                    <Nav.Link as={Link} to="/admin-area">
+                      Area Admin
+                    </Nav.Link>
+                  )}
+                  {userRole === "USER" && (
+                    <Nav.Link as={Link} to="/user-page">
+                      Pagina Utente
+                    </Nav.Link>
+                  )}
+                  <Nav.Link as={Link} to="#" onClick={handleLogout}>
+                    Logout
+                  </Nav.Link>
+                </>
+              ) : (
+                <>
+                  <Nav.Link as={Link} to="#" onClick={onLoginClick}>
+                    Login
+                  </Nav.Link>{" "}
+                  {/* Usa onLoginClick qui */}
+                  <div className="separatore"> | </div>
+                  <Nav.Link as={Link} to="#" onClick={onRegisterClick}>
+                    Registrati
+                  </Nav.Link>
+                </>
+              )}
             </Nav>
           </Col>
         </Navbar>
