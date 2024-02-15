@@ -8,6 +8,7 @@ import { useState } from "react";
 import Login from "./components/Login";
 import AdminArea from "./components/AdminArea";
 import UserPage from "./components/UserPage";
+import Corsi from "./components/Corsi";
 
 function App() {
   const [showRegister, setShowRegister] = useState(false);
@@ -31,7 +32,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/admin-area" element={<AdminArea />} />
           <Route path="/user-page" element={<UserPage />} />
-          {/* Qui puoi aggiungere altre Route per altre pagine */}
+          <Route path="/corsi" element={<Corsi />} />
         </Routes>
       </div>
     </BrowserRouter>
