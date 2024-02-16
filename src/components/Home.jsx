@@ -2,6 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import image from "../assets/immagini/home1.png";
 import HomeCorsi from "./HomeCorsi";
 import Galleria from "./Galleria";
+import Trainer from "./Trainer";
 
 const Home = () => {
   return (
@@ -27,6 +28,7 @@ const Home = () => {
       </Row>
       <HomeCorsi />
       <Galleria />
+      <Trainer />
     </Container>
   );
 };

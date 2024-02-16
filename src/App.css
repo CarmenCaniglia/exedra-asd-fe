@@ -1,4 +1,6 @@
-
+body {
+  background: linear-gradient(to top,black 2%, #E57600 22%, white 60%);
+}
 .separatore{
   display: inline-block;
   margin: 0 10px;
@@ -16,10 +18,63 @@
   border: 1px solid black;
 }
 
+/* GALLERIA */
 .carousel-image{
   border-radius: 35px;
 }
 .carousel-3d{
   border-radius: 35px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25), 0 12px 24px 0 rgba(0, 0, 0, 0.22);
+}
+
+/* TRAINER */
+.trainer-card{ 
+  border: 2px solid transparent;
+  transition: border-color 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease ;
+  box-shadow:  0 0 0 0 rgba(255, 165, 0, 0);
+}
+.card-img {
+  border-radius: 20px 20px 0 0;
+}
+.bw-filter{
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+  
+  
+}
+
+.trainer-info{
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  
+}
+
+.trainer-card:hover .bw-filter{
+  filter: grayscale(0);
+}
+
+.trainer-card:hover .trainer-info{
+  opacity: 1;
+}
+
+.trainer-card:hover{
+  border-color: #E57600;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 166, 0, 0.895);
+  
+}
+
+.trainer-card:hover .card-title{
+  color: #E57600;
+}
+
+.title-container {
+  text-align: start; /* Allinea il testo a sinistra */
+  background: linear-gradient(to right, black, transparent); /* Gradiente da nero a trasparente */
+  padding: 1em; /* Aggiunge un po' di spazio intorno al testo */
+}
+
+.title {
+  color: white; /* Imposta il colore del testo a bianco */
+  margin: 0; /* Rimuove il margine di default dell'h2 se necessario */
 }
