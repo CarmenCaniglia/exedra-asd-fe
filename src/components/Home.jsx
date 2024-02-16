@@ -1,13 +1,14 @@
 import { Col, Container, Row } from "react-bootstrap";
 import image from "../assets/immagini/home1.png";
 import HomeCorsi from "./HomeCorsi";
+import Galleria from "./Galleria";
 
 const Home = () => {
   return (
     <Container fluid>
       <Row className="my-5 d-flex align-items-center justify-content-center">
         <Col lg={6} md={12} className="d-flex">
-          <img alt="trainer" src={image} className="img-home" />
+          <img alt="trainer" src={image} className="img-fluid img-home" />
 
           <div className="d-flex align-items-center text-center">
             <p>
@@ -25,6 +26,7 @@ const Home = () => {
         </Col>
       </Row>
       <HomeCorsi />
+      <Galleria />
     </Container>
   );
 };
