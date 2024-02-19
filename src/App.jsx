@@ -10,6 +10,7 @@ import AdminArea from "./components/AdminArea";
 import UserPage from "./components/UserPage";
 import Corsi from "./components/Corsi";
 import Shop from "./components/Shop";
+import Carrello from "./components/Carrello";
 
 function App() {
   const [showRegister, setShowRegister] = useState(false);
@@ -35,6 +36,7 @@ function App() {
           <Route path="/user-page" element={<UserPage />} />
           <Route path="/corsi" element={<Corsi />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Carrello />} />
         </Routes>
       </div>
     </BrowserRouter>
