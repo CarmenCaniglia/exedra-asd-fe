@@ -9,6 +9,7 @@ const Shop = () => {
   const [prodottoSelected, setProdottoSelected] = useState(null);
   const navigate = useNavigate();
   const cartLength = useSelector((state) => state.cart.content.length);
+
   return (
     <Container>
       <div className="d-flex align-items-baseline justify-content-between my-4">

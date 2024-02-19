@@ -3,11 +3,14 @@ import logo from "../assets/loghi/LOGO copia 2.png";
 import Register from "./Register";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutAction } from "../redux/actions";
 
 const MyNavbar = ({ onRegisterClick, onLoginClick }) => {
   const [showRegister, setShowRegister] = useState(false);
   const handleShowRegister = () => setShowRegister(true);
   const handleCloseRegister = () => setShowRegister(false);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const isAuthenticated = localStorage.getItem("token");
@@ -16,6 +19,7 @@ const MyNavbar = ({ onRegisterClick, onLoginClick }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    dispatch(logoutAction());
     navigate("/");
     window.location.reload();
   };

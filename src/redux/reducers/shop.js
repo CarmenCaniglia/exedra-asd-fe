@@ -25,13 +25,6 @@ const shopReducer = (state = initialState, action) => {
           content: state.cart.content.filter(
             (prodotto, i) => i !== action.payload
           ),
-          // content: [
-          //   ...state.cart.content.slice(0, action.payload),
-          //   ...state.cart.content.slice(
-          //     action.payload + 1,
-          //     state.cart.content.length //posso ometterlo
-          //   ),
-          // ],
         },
       };
 

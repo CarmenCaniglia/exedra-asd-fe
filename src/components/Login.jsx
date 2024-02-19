@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginFailureAction, loginSuccessAction } from "../redux/actions";
 
 const Login = ({ show, handleClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
@@ -22,9 +25,10 @@ const Login = ({ show, handleClose }) => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        dispatch(loginSuccessAction(data.token, data.role));
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.role);
+        handleClose();
         if (data.role === "ADMIN") {
           navigate("/admin-area");
         } else {
@@ -32,7 +36,7 @@ const Login = ({ show, handleClose }) => {
         }
       })
       .catch((err) => {
-        console.error("Login fallito: ", err);
+        dispatch(loginFailureAction(err.message));
       });
   };
 
