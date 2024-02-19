@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCartAction } from "../redux/actions";
 
 const Carrello = () => {
-  const cart = useSelector((state) => state.cart.content);
+  const cart = useSelector((state) => state.cart.cart.content);
   const dispatch = useDispatch();
   return (
     <Row>

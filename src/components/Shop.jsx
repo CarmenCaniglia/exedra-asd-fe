@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 const Shop = () => {
   const [prodottoSelected, setProdottoSelected] = useState(null);
   const navigate = useNavigate();
-  const cartLength = useSelector((state) => state.cart.content.length);
+  const cartLength = useSelector((state) => state.cart.cart.content.length);
 
   return (
     <Container>
