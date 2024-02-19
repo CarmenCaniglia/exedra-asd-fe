@@ -1,32 +1,36 @@
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getProdottiAction } from "../redux/actions";
 
 const Prodotti = ({ setSelected, selected }) => {
-  const [prodotti, setProdotti] = useState([]);
+  const dispatch = useDispatch();
+  const prodotti = useSelector((state) => state.prodotto.stock);
 
   useEffect(() => {
-    getProdotti();
+    // getProdotti();
+    dispatch(getProdottiAction());
   }, []);
 
-  const getProdotti = async () => {
-    try {
-      const resp = await fetch("http://localhost:3001/prodotti", {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzA4MzMzNDk4LCJleHAiOjE3MDg5MzgyOTh9.wAay29oYqaotKgZ28boGxsh04zIe3bKGD9TW2j2prgU", // Add your token here
-          "Content-Type": "application/json",
-        },
-      });
-      if (!resp.ok) {
-        throw new Error(`HTTP error! status: ${resp.status}`);
-      }
-      const data = await resp.json();
-      setProdotti(data.content);
-      console.log(data);
-    } catch (err) {
-      console.error("Non è possibile recuperare la lista dei prodotti:", err);
-    }
-  };
+  // const getProdotti = async () => {
+  //   try {
+  //     const resp = await fetch("http://localhost:3001/prodotti", {
+  //       headers: {
+  //         Authorization:
+  //           "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzA4MzMzNDk4LCJleHAiOjE3MDg5MzgyOTh9.wAay29oYqaotKgZ28boGxsh04zIe3bKGD9TW2j2prgU", // Add your token here
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     if (!resp.ok) {
+  //       throw new Error(`HTTP error! status: ${resp.status}`);
+  //     }
+  //     const data = await resp.json();
+  //     setProdotti(data.content);
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.error("Non è possibile recuperare la lista dei prodotti:", err);
+  //   }
+  // };
 
   const changeProdotto = (prodotto) => {
     setSelected(prodotto);

@@ -4,8 +4,8 @@ import userReducer from "../reducers/user";
 import prodottoReducer from "../reducers/prodotto";
 
 const bigReducer = combineReducers({
-  cart: shopReducer,
   user: userReducer,
+  cart: shopReducer,
   prodotto: prodottoReducer,
 });
 
