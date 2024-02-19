@@ -76,3 +76,8 @@
   color: white; /* Imposta il colore del testo a bianco */
   margin: 0; /* Rimuove il margine di default dell'h2 se necessario */
 }
+
+.picProdotto{
+  width: 40%;
+  margin-right: 1em;
+}

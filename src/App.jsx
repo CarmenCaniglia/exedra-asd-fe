@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import AdminArea from "./components/AdminArea";
 import UserPage from "./components/UserPage";
 import Corsi from "./components/Corsi";
+import Shop from "./components/Shop";
 
 function App() {
   const [showRegister, setShowRegister] = useState(false);
@@ -33,6 +34,7 @@ function App() {
           <Route path="/admin-area" element={<AdminArea />} />
           <Route path="/user-page" element={<UserPage />} />
           <Route path="/corsi" element={<Corsi />} />
+          <Route path="/shop" element={<Shop />} />
         </Routes>
       </div>
     </BrowserRouter>
