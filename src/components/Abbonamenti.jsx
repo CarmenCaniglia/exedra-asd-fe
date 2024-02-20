@@ -1,32 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAbbonamenti } from "../redux/actions/abbonamenti";
 
 const Abbonamenti = () => {
-  const [abbonamenti, setAbbonamenti] = useState([]);
-
-  const getAbbonamenti = async () => {
-    try {
-      const res = await fetch("http://localhost:3001/abbonamenti", {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzA4NDUzMTg4LCJleHAiOjE3MDkwNTc5ODh9.wDY_KQsORxGqeDeg-O7VJ0EYg2EurOWjezfa3V9YBYU",
-          "Content-Type": "application/json",
-        },
-      });
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      const data = await res.json();
-      console.log(data);
-      setAbbonamenti(data.content);
-    } catch (err) {
-      console.error("Errore nel caricamento degli abbonamenti", err);
-    }
-  };
+  const dispatch = useDispatch();
+  const abbonamenti = useSelector((state) => state.abbonamenti.abbonamenti);
+  const error = useSelector((state) => state.abbonamenti.error);
 
   useEffect(() => {
-    getAbbonamenti();
-  }, []);
+    dispatch(fetchAbbonamenti());
+  }, [dispatch]);
+
+  if (error) {
+    return <div>Errore nel caricamento degli abbonamenti: {error}</div>;
+  }
 
   return (
     <Container className="my-3">
