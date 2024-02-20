@@ -3,7 +3,7 @@ import logo from "../assets/loghi/LOGO copia 2.png";
 import Register from "./Register";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../redux/actions";
 
 const MyNavbar = ({ onRegisterClick, onLoginClick }) => {
@@ -13,15 +13,12 @@ const MyNavbar = ({ onRegisterClick, onLoginClick }) => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem("token");
-  const userRole = localStorage.getItem("role");
+  const { token, role } = useSelector((state) => state.user);
+  const isAuthenticated = token != null;
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
     dispatch(logoutAction());
     navigate("/");
-    window.location.reload();
   };
 
   return (
@@ -73,12 +70,12 @@ const MyNavbar = ({ onRegisterClick, onLoginClick }) => {
             <Nav className="justify-content-end me-3">
               {isAuthenticated ? (
                 <>
-                  {userRole === "ADMIN" && (
+                  {role === "ADMIN" && (
                     <Nav.Link as={Link} to="/admin-area">
                       Area Admin
                     </Nav.Link>
                   )}
-                  {userRole === "USER" && (
+                  {role === "USER" && (
                     <Nav.Link as={Link} to="/user-page">
                       Pagina Utente
                     </Nav.Link>

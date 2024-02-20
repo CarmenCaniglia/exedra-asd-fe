@@ -4,6 +4,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const GET_PRODOTTI = "GET_PRODOTTI";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 
 export const addToCartAction = (prodottoSelected) => {
   return {
@@ -59,6 +60,27 @@ export const getProdottiAction = () => {
       });
     } catch (err) {
       console.error("Non è possibile recuperare la lista dei prodotti:", err);
+    }
+  };
+};
+
+export const fetchUserData = () => {
+  return async (dispatch, getState) => {
+    const token = getState().user.token;
+    try {
+      const response = await fetch("http://localhost:3001/utenti/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) throw new Error("Errore nel fetch dei dati utente");
+      const userData = await response.json();
+      dispatch({
+        type: "FETCH_USER_SUCCESS",
+        payload: userData,
+      });
+    } catch (error) {
+      console.error("Errore nel fetch dei dati utente:", error);
     }
   };
 };

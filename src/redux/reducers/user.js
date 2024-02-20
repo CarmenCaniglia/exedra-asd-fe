@@ -1,8 +1,14 @@
-import { LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from "../actions";
+import {
+  FETCH_USER_SUCCESS,
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS,
+  LOGOUT,
+} from "../actions";
 
 const initialState = {
   token: "",
   role: "",
+  userData: null,
   error: null,
 };
 
@@ -14,6 +20,12 @@ const userReducer = (state = initialState, action) => {
         token: action.payload.token,
         role: action.payload.role,
         error: null,
+      };
+
+    case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        userData: action.payload,
       };
 
     case LOGOUT:
