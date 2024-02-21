@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData } from "../redux/actions";
+import { fetchUserData, uploadUserImage } from "../redux/actions";
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -10,13 +10,21 @@ const UserPage = () => {
     dispatch(fetchUserData());
   }, [dispatch]);
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file && userData && userData.id) {
+      dispatch(uploadUserImage(userData.id, file));
+    }
+  };
+
   return (
     <div className="user-page">
-      <h1>Pagina Utente</h1>
       {userData ? (
         <>
+          <h1>Ciao {userData.nome}</h1>
           <div className="user-card">
             <img src={userData.avatar} alt="Avatar dell'utente" />
+            <input type="file" onChange={handleImageUpload} />
             <div className="user-card-details">
               <p>Nome: {userData.nome}</p>
               <p>Cognome: {userData.cognome}</p>
@@ -26,12 +34,12 @@ const UserPage = () => {
           {userData.abbonamento && (
             <div className="abbonamento-details">
               <h3>Dettagli Abbonamento</h3>
-              <p>ID: {userData.abbonamento.id}</p>
-              <p>Tipo: {userData.abbonamento.tipoAbbonamento}</p>
-              <p>Prezzo: {userData.abbonamento.prezzo}</p>
+              <p>
+                Tipologia Abbonamento: {userData.abbonamento.tipoAbbonamento}
+              </p>
+              <p>Prezzo: {userData.abbonamento.prezzo} €</p>
               <p>Data Inizio: {userData.abbonamento.dataInizio}</p>
               <p>Data Fine: {userData.abbonamento.dataFine}</p>
-              <p>Descrizione: {userData.abbonamento.descrizione || "N/A"}</p>
             </div>
           )}
         </>

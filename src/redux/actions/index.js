@@ -5,6 +5,7 @@ export const LOGOUT = "LOGOUT";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const GET_PRODOTTI = "GET_PRODOTTI";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
+export const UPLOAD_USER_IMAGE_SUCCESS = "UPLOAD_USER_IMAGE_SUCCESS";
 
 export const addToCartAction = (prodottoSelected) => {
   return {
@@ -81,6 +82,41 @@ export const fetchUserData = () => {
       });
     } catch (error) {
       console.error("Errore nel fetch dei dati utente:", error);
+    }
+  };
+};
+
+export const uploadUserImage = (userId, file) => {
+  return async (dispatch, getState) => {
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    const token = getState().user.token;
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/utenti/${userId}/upload`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Errore nel caricamento dell'immagine");
+      }
+
+      const imageUrl = await response.text();
+      console.log("URL dell'immagine caricata:", imageUrl);
+      dispatch({
+        type: UPLOAD_USER_IMAGE_SUCCESS,
+        payload: imageUrl,
+      });
+    } catch (error) {
+      console.error("Errore:", error);
     }
   };
 };

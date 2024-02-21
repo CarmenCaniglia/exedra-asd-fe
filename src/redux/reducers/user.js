@@ -3,6 +3,7 @@ import {
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
   LOGOUT,
+  UPLOAD_USER_IMAGE_SUCCESS,
 } from "../actions";
 
 const initialState = {
@@ -41,6 +42,15 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload.error,
+      };
+
+    case UPLOAD_USER_IMAGE_SUCCESS:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          avatar: action.payload,
+        },
       };
 
     default:
