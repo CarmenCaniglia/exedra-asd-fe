@@ -33,6 +33,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         token: null,
         role: null,
+        userData: null,
+        error: null,
       };
 
     case LOGIN_FAILURE:
