@@ -1,8 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Special+Elite&display=swap');
 
-body {
+html, body {
   font-family: 'Roboto', sans-serif !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
+#root { /* O un qualsiasi wrapper che usi */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.App {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  flex-shrink: 0;
+}
+
+.social-icon i {
+  color: #E57600; /* Cambia questo colore in base alle tue esigenze */
+}
+
+/* Opzionale: aggiungi spazio tra gli elementi se necessario */
+.footer p {
+  margin-right: 20px; /* Aggiusta questo valore come preferisci */
+}
+
 h3{
   font-family: 'Special Elite', cursive !important;
 }
@@ -113,7 +140,7 @@ h3{
 .trainer-container {
   position: relative;
   z-index: 1;
-
+  margin-bottom: 15em;
 }
 .trainer{
   margin-bottom: -13rem;

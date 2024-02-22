@@ -12,6 +12,7 @@ import Corsi from "./components/Corsi";
 import Shop from "./components/Shop";
 import Carrello from "./components/Carrello";
 import Abbonamenti from "./components/Abbonamenti";
+import Footer from "./components/Footer";
 
 function App() {
   const [showRegister, setShowRegister] = useState(false);
@@ -40,6 +41,7 @@ function App() {
           <Route path="/cart" element={<Carrello />} />
           <Route path="/abbonamenti" element={<Abbonamenti />} />
         </Routes>
+        <Footer />
       </div>
     </BrowserRouter>
   );

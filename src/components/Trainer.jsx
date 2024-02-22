@@ -16,7 +16,7 @@ const trainers = [
 const Trainer = () => {
   return (
     <>
-      <Row className="trainer-container justify-content-center text-center mb-5">
+      <Row className="trainer-container justify-content-center text-center">
         {trainers.map((trainers, index) => (
           <Col key={index} lg={2} md={6} sm={12} className="trainer mt-5 ">
             <div className="trainer-card  mx-auto">
