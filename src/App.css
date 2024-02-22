@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Special+Elite&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif !important;
+}
+h3{
+  font-family: 'Special Elite', cursive !important;
+}
 .section1 {
   position: relative;
   z-index: 1;
@@ -10,28 +18,67 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../src/assets/immagini/sala\ arancio.jpg'); /* Assicurati che il percorso sia corretto */
+  background-image: url('../src/assets/immagini/sala\ bw.jpg'); 
   background-size: cover;
   background-position: center;
-  opacity: 0.5; /* Imposta l'opacità qui */
   z-index: -1;
 }
+
+.text{
+  font-size: 6rem;
+  color: #E57600;
+  font-family: 'Special Elite', cursive;
+  padding-top: 2em;
+  text-shadow: 6px 2px 14px black;
+}
+.text-container{
+  height: 100%;
+}
+
 .separatore{
   display: inline-block;
   margin: 0 10px;
   align-self: center;
 }
 .img-home{
-  width: 70%;
+  width: 60%;
+  padding-top: 2em;
 }
 
+/* CORSI */
 .class-image{
   width: 20%;
 }
 
 .class-card{
-  border: 1px solid black;
+  border: 2px solid #cfc8c8;
+  border-radius: 20px;
+  box-shadow: -3px 5px 4px 0 #929090;
+  cursor: pointer;
 }
+.custom-btn {
+  background-color: #E57600 ;
+  border: none ;
+  border-radius: 7px ; 
+  font-family: 'Special Elite', cursive ;
+  color: rgb(251, 250, 250) ; 
+  padding: 10px 20px ;
+  font-style: italic ;
+  font-size: 1.5em ;
+  transform: skewX(-15deg);
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-btn:hover {
+  background-color: #e06316 ; 
+}
+
+.custom-button > * {
+  transform: skewX(10deg); 
+}
+
 
 /* GALLERIA */
 .carousel-image{

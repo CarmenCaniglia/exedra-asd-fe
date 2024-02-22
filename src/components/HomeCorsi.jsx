@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import yogaImage from "../assets/icone corsi/meditation.png";
 import functionalImage from "../assets/icone corsi/gym.png";
 import cardioImage from "../assets/icone corsi/dumbbell.png";
@@ -53,8 +53,8 @@ const HomeCorsi = () => {
   };
 
   return (
-    <Container>
-      <Row className="g-0">
+    <Container className="mb-5">
+      <Row className="g-3">
         {classi.map((classe, index) => (
           <Col
             key={index}
@@ -77,9 +77,9 @@ const HomeCorsi = () => {
       </Row>
       <Row className="mt-3">
         <Col className="text-center">
-          <Button onClick={goToCorsi} variant="warning">
-            Scopri tutti i nostri corsi
-          </Button>
+          <button onClick={goToCorsi} className="custom-btn mt-3">
+            TUTTI I CORSI
+          </button>
         </Col>
       </Row>
     </Container>
