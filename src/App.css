@@ -1,4 +1,21 @@
+.section1 {
+  position: relative;
+  z-index: 1;
+}
 
+.section1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../src/assets/immagini/sala\ arancio.jpg'); /* Assicurati che il percorso sia corretto */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5; /* Imposta l'opacità qui */
+  z-index: -1;
+}
 .separatore{
   display: inline-block;
   margin: 0 10px;

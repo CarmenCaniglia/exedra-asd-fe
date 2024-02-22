@@ -22,9 +22,9 @@ const MyNavbar = ({ onRegisterClick, onLoginClick }) => {
   };
 
   return (
-    <Container fluid>
+    <Container fluid className="px-0">
       <Row>
-        <Navbar>
+        <Navbar fixed="top" bg="white" expand="lg">
           <Col xs={4} md={3} lg={2} className="d-flex align-items-center">
             <Navbar.Brand as={Link} to="/">
               <img
