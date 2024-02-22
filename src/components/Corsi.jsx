@@ -9,7 +9,7 @@ const Corsi = () => {
     fetch("http://localhost:3001/corsi?size=1000", {
       headers: {
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzA3OTkwMjg4LCJleHAiOjE3MDg1OTUwODh9.LNhlL4MmB_oRxy6ZSiSJ7PhhboNqic7aHKVz4LompUc",
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzA4NTk4ODg1LCJleHAiOjE3MTA2NzI0ODV9.WwOU0ayTIgqswg45r5k2aCpX7TEXOHw1itWUm-AHHY0",
       },
     })
       .then((res) => {
