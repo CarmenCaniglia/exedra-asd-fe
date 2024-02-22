@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import t1 from "../assets/immagini/trainer1.jpg";
 import t2 from "../assets/immagini/trainer2.jpg";
 import t3 from "../assets/immagini/trainer3.jpg";
@@ -15,13 +15,10 @@ const trainers = [
 
 const Trainer = () => {
   return (
-    <Container fluid className="text-center">
-      <Row className="justify-content-center">
-        <div className="title-container ">
-          <h2 className="title">I NOSTRI TRAINER</h2>
-        </div>
+    <>
+      <Row className="trainer-container justify-content-center text-center mb-5">
         {trainers.map((trainers, index) => (
-          <Col key={index} lg={2} md={6} sm={12} className="mt-5 mb-4 ">
+          <Col key={index} lg={2} md={6} sm={12} className="trainer mt-5 ">
             <div className="trainer-card  mx-auto">
               <img
                 src={trainers.pic}
@@ -36,7 +33,7 @@ const Trainer = () => {
           </Col>
         ))}
       </Row>
-    </Container>
+    </>
   );
 };
 

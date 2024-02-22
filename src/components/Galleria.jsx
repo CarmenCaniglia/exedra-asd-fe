@@ -8,7 +8,7 @@ import image7 from "../assets/Galleria/7.jpg";
 import image8 from "../assets/Galleria/8.jpg";
 import image9 from "../assets/Galleria/9.jpg";
 import image10 from "../assets/Galleria/10.jpg";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
+import { Carousel, Col, Row } from "react-bootstrap";
 
 const images = [
   image1,
@@ -24,11 +24,11 @@ const images = [
 ];
 const Galleria = () => {
   return (
-    <Container className="mt-3 mb-3">
-      <Row className="justify-content-center">
-        <Col xs={12} md={10} lg={10}>
+    <>
+      <Row className="mt-3 mb-3 galleria-bg justify-content-center">
+        <Col xs={12} md={10} lg={10} className="py-4">
           {" "}
-          <Carousel fade className="carousel-3d">
+          <Carousel fade className="carousel-3d ">
             {images.map((image, index) => (
               <Carousel.Item key={index}>
                 <img
@@ -41,7 +41,7 @@ const Galleria = () => {
           </Carousel>
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };
 
