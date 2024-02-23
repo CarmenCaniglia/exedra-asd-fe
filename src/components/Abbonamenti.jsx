@@ -40,9 +40,9 @@ const Abbonamenti = () => {
                 <Card.Text className="abb-title">
                   {abbonamento.tipoAbbonamento}
                 </Card.Text>
-                <p>{abbonamento.descrizione}</p>
-                <Card.Text className="fw-bold">
-                  A soli {abbonamento.prezzo} €
+                <p className="descrizione-abb ">{abbonamento.descrizione}</p>
+                <Card.Text className="prezzo-abb">
+                  {abbonamento.prezzo} €
                 </Card.Text>
                 <Button
                   className="custom-btn2"

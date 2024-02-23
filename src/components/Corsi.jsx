@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 
 const Corsi = () => {
   const [corsi, setCorsi] = useState("");
@@ -47,26 +47,30 @@ const Corsi = () => {
   const giorni = ["LUNEDI", "MARTEDI", "MERCOLEDI", "GIOVEDI", "VENERDI"];
 
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Orario</th>
-          {giorni.map((giorno) => (
-            <th key={giorno}>{giorno}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {orari.map((orario) => (
-          <tr key={orario}>
-            <td>{orario}</td>
+    <Container fluid className="tabella-container">
+      <Table striped bordered className="tabella-corsi ">
+        <thead>
+          <tr>
+            <th className="titolo-tab">ORARIO</th>
             {giorni.map((giorno) => (
-              <td key={giorno}>{orariSettimanali[orario][giorno] || ""}</td>
+              <th className="titolo-tab" key={giorno}>
+                {giorno}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {orari.map((orario) => (
+            <tr key={orario}>
+              <td>{orario}</td>
+              {giorni.map((giorno) => (
+                <td key={giorno}>{orariSettimanali[orario][giorno] || ""}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </Container>
   );
 };
 
