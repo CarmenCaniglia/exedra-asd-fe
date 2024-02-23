@@ -1,4 +1,4 @@
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addToCartAction } from "../redux/actions";
 
@@ -11,20 +11,26 @@ const DettagliProdotto = ({ prodottoSelected }) => {
         <>
           <Row>
             <Col sm={12}>
-              <h1>{prodottoSelected.nome}</h1>
+              <h1 className="titolo-shop">{prodottoSelected.nome}</h1>
             </Col>
           </Row>
           <Row className="mt-3">
-            <Col sm={4}>
+            <Col
+              sm={4}
+              className="d-flex align-items-center justify-content-center"
+            >
               <div className="mt-3">
                 <img
-                  className="book-cover img-fluid"
+                  className="img-fluid"
                   src={prodottoSelected.image}
                   alt="Prodotto selezionato"
                 />
               </div>
             </Col>
-            <Col sm={8}>
+            <Col
+              sm={8}
+              className="d-flex flex-column align-items-center justify-content-start"
+            >
               <p>
                 <span className="fw-bold">Descrizione:</span>&nbsp;
                 {prodottoSelected.descrizione}
@@ -33,15 +39,16 @@ const DettagliProdotto = ({ prodottoSelected }) => {
                 <span className="fw-bold">Prezzo:</span>&nbsp;
                 {prodottoSelected.prezzo}€
               </p>
-              <Button
-                className="d-flex align-items-center"
+              <button
+                className="custom-btn2 d-flex align-items-center "
                 onClick={() => {
                   dispatch(addToCartAction(prodottoSelected));
+                  alert("Prodotto aggiunto al carrello");
                 }}
               >
                 <span className="me-2">AGGIUNGI AL</span>
                 <i className="bi bi-cart"></i>
-              </Button>
+              </button>
             </Col>
           </Row>
         </>

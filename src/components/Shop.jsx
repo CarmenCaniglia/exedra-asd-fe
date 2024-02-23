@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Prodotti from "./Prodotti";
 import DettagliProdotto from "./DettagliProdotti";
 import { useState } from "react";
@@ -11,16 +11,16 @@ const Shop = () => {
   const cartLength = useSelector((state) => state.cart.cart.content.length);
 
   return (
-    <Container>
+    <Container className="shop-container">
       <div className="d-flex align-items-baseline justify-content-between my-4">
-        <h2>Scopri i nostri prodotti!</h2>
-        <Button
+        <h1 className="titolo-shop">Scopri i nostri prodotti!</h1>
+        <button
           onClick={() => navigate("/cart")}
-          className="d-flex align-items-center"
+          className="custom-btn2 d-flex align-items-center"
         >
           <i className="bi bi-cart"></i>
           <span className="ms-2">{cartLength}</span>
-        </Button>
+        </button>
       </div>
       <Row>
         <Col lg={4}>
