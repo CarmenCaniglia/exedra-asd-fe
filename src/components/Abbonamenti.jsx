@@ -19,7 +19,6 @@ const Abbonamenti = () => {
   }, [dispatch]);
 
   const handleScegli = (tipoAbbonamento) => {
-    // Crea i dati dell'abbonamento
     const abbonamentoData = {
       tipoAbbonamento,
       userId,
@@ -32,20 +31,24 @@ const Abbonamenti = () => {
   }
 
   return (
-    <Container className="my-3">
-      <Row>
+    <Container fluid className="abb-container">
+      <Row className="mx-3">
         {abbonamenti.slice(0, 3).map((abbonamento, index) => (
-          <Col key={index} md={4} className="mb-4">
-            <Card>
-              <Card.Body>
-                <Card.Title>{abbonamento.tipoAbbonamento}</Card.Title>
+          <Col key={index} md={4} sm={12} className="mb-4">
+            <Card className="class-card">
+              <Card.Body className="d-flex flex-column align-items-center text-center">
+                <Card.Text className="abb-title">
+                  {abbonamento.tipoAbbonamento}
+                </Card.Text>
                 <p>{abbonamento.descrizione}</p>
-                <Card.Text>Prezzo: {abbonamento.prezzo}</Card.Text>
+                <Card.Text className="fw-bold">
+                  A soli {abbonamento.prezzo} €
+                </Card.Text>
                 <Button
-                  variant="primary"
+                  className="custom-btn2"
                   onClick={() => handleScegli(abbonamento.tipoAbbonamento)}
                 >
-                  Scegli
+                  ACQUISTA
                 </Button>
               </Card.Body>
             </Card>

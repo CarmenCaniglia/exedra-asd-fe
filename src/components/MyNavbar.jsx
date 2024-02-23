@@ -22,7 +22,7 @@ const MyNavbar = ({ onRegisterClick, onLoginClick }) => {
   };
 
   return (
-    <Container fluid className="navbar px-0">
+    <Container fluid className="navbar-custom px-0">
       <Row>
         <Navbar fixed="top" bg="white" expand="lg">
           <Col xs={4} md={3} lg={2} className="d-flex align-items-center">
@@ -89,7 +89,6 @@ const MyNavbar = ({ onRegisterClick, onLoginClick }) => {
                   <Nav.Link as={Link} to="#" onClick={onLoginClick}>
                     Login
                   </Nav.Link>{" "}
-                  {/* Usa onLoginClick qui */}
                   <div className="separatore"> | </div>
                   <Nav.Link as={Link} to="#" onClick={onRegisterClick}>
                     Registrati

@@ -36,16 +36,13 @@ const Corsi = () => {
   }
 
   const orariSettimanali = corsi.reduce((acc, corso) => {
-    // Se non esiste un array per quell'orario, crealo
     if (!acc[corso.orario]) {
       acc[corso.orario] = {};
     }
-    // Aggiungi il nome del corso al giorno corrispondente
     acc[corso.orario][corso.giorno] = corso.nome;
     return acc;
   }, {});
 
-  // Estrai gli orari univoci
   const orari = Object.keys(orariSettimanali).sort();
   const giorni = ["LUNEDI", "MARTEDI", "MERCOLEDI", "GIOVEDI", "VENERDI"];
 

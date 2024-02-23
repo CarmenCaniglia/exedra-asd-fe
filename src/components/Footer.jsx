@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer mt-auto py-3 bg-white">
       <Container>
         <Row className="justify-content-center">
-          <Col className="d-flex align-items-center justify-content-between">
+          <Col className="d-flex align-items-center justify-content-around">
             <p className="mb-0">
               Exedra asd <span className="social-icon">©</span>
               {year}
