@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData, updateUser, uploadUserImage } from "../redux/actions";
+import {
+  deleteUser,
+  fetchUserData,
+  updateUser,
+  uploadUserImage,
+  logoutAction,
+} from "../redux/actions";
 import { Form, Modal, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData);
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState({
     nome: "",
@@ -56,12 +64,28 @@ const UserPage = () => {
     dispatch(updateUser(payload))
       .then(() => {
         dispatch(fetchUserData()); // Ri-fetch dei dati dell'utente
-        handleClose(); // Chiudi il modale
+        handleClose();
+        alert("Dati aggiornati con successo!");
       })
       .catch((error) => {
-        // Gestisci qui l'errore, ad esempio mostrando un messaggio all'utente
         console.error("Errore nell'aggiornamento dei dati utente: ", error);
+        alert("Si è verificato un errore durante l'aggiornamento dei dati!");
       });
+  };
+  const handleDeleteUser = () => {
+    const isConfirmed = window.confirm(
+      "Sei sicuro di voler eliminare il tuo account? Non potrai più tornare indietro!"
+    );
+    if (isConfirmed) {
+      dispatch(deleteUser())
+        .then(() => {
+          dispatch(logoutAction());
+          navigate("/", { replace: true });
+        })
+        .catch((err) => {
+          console.error("Errore durante l'eliminzaione dell'account: ", err);
+        });
+    }
   };
 
   return (
@@ -69,9 +93,7 @@ const UserPage = () => {
       {userData ? (
         <>
           <h1>Ciao {userData.nome}</h1>
-          <Button variant="primary" onClick={handleShow}>
-            Modifica Profilo
-          </Button>
+
           <div className="user-card">
             <img src={userData.avatar} alt="Avatar dell'utente" />
             <input type="file" onChange={handleImageUpload} />
@@ -79,6 +101,14 @@ const UserPage = () => {
               <p>Nome: {userData.nome}</p>
               <p>Cognome: {userData.cognome}</p>
               <p>Email: {userData.email}</p>
+              <div>
+                <Button variant="primary" onClick={handleShow}>
+                  Modifica Profilo
+                </Button>
+                <Button variant="danger" onClick={handleDeleteUser}>
+                  Elimina Account
+                </Button>
+              </div>
             </div>
           </div>
 

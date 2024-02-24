@@ -1,4 +1,6 @@
 import {
+  DELETE_USER_FAILURE,
+  DELETE_USER_SUCCESS,
   FETCH_USER_SUCCESS,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
@@ -63,6 +65,16 @@ const userReducer = (state = initialState, action) => {
       };
 
     case UPDATE_USER_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+      };
+
+    case DELETE_USER_SUCCESS:
+      return {
+        ...initialState,
+      };
+    case DELETE_USER_FAILURE:
       return {
         ...state,
         error: action.payload,

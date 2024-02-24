@@ -8,6 +8,8 @@ export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const UPLOAD_USER_IMAGE_SUCCESS = "UPLOAD_USER_IMAGE_SUCCESS";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
+export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";
+export const DELETE_USER_FAILURE = "DELETE_USER_FAILURE";
 
 export const addToCartAction = (prodottoSelected) => {
   return {
@@ -147,6 +149,32 @@ export const updateUser = (userData) => {
       console.error("Errore nell'aggiornamento dei dati utente: ", err);
       dispatch({
         type: UPDATE_USER_FAILURE,
+        payload: err.message,
+      });
+    }
+  };
+};
+
+export const deleteUser = () => {
+  return async (dispatch, getState) => {
+    const token = getState().user.token;
+    try {
+      const res = await fetch("http://localhost:3001/utenti/me", {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error("Errore nell'eliminazione dell'utente!");
+      }
+      dispatch({
+        type: DELETE_USER_SUCCESS,
+      });
+    } catch (err) {
+      console.error("Errore nell'eliminazione dell'utente: ", err);
+      dispatch({
+        type: DELETE_USER_FAILURE,
         payload: err.message,
       });
     }
