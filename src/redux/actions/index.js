@@ -6,6 +6,8 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const GET_PRODOTTI = "GET_PRODOTTI";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const UPLOAD_USER_IMAGE_SUCCESS = "UPLOAD_USER_IMAGE_SUCCESS";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_FAILURE = "UPDATE_USER_FAILURE";
 
 export const addToCartAction = (prodottoSelected) => {
   return {
@@ -117,6 +119,36 @@ export const uploadUserImage = (userId, file) => {
       });
     } catch (error) {
       console.error("Errore:", error);
+    }
+  };
+};
+
+export const updateUser = (userData) => {
+  return async (dispatch, getState) => {
+    const token = getState().user.token;
+    try {
+      const res = await fetch("http://localhost:3001/utenti/me", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(userData),
+      });
+      if (!res.ok) {
+        throw new Error("Errore nell'aggiornamento dell'utente!");
+      }
+      const updatedUserData = await res.json();
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: updatedUserData,
+      });
+    } catch (err) {
+      console.error("Errore nell'aggiornamento dei dati utente: ", err);
+      dispatch({
+        type: UPDATE_USER_FAILURE,
+        payload: err.message,
+      });
     }
   };
 };
