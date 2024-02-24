@@ -254,28 +254,59 @@ h3{
  }
 
 /* card utente */
+.user-page{
+  margin-top: 8em;
+}
 .user-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 2px solid #cfc8c8;
+  border-radius:  20px;
   overflow: hidden;
   width: 300px; 
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: -3px 5px 10px 0 #444242cf;
   margin: 20px auto;
-  text-align: center;
+  width: 420px;
 }
 
-.user-card img {
-  width: 100%;
-  height: auto;
+.user-image{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+.i-foto{
+  color:#E57600;
+  font-size: 27px
+  
+}
+.i-label{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+#file-upload{
+  display: none;
+}
+.email{
+  color: #E57600;
+  
 }
 
-.user-card-details {
-  padding: 20px;
+.user-btn {
+  color: #E57600; 
+  border-color: #E57600; 
+  background-color: white; 
+  border-radius: 15%;
+  font-size: 1.5em;
+  padding: 0.1em 1em;
 }
 
-.user-card-details p {
-  margin: 10px 0;
+.user-btn:hover {
+  color: white; 
+  background-color: #E57600; 
+  border-color: #E57600; 
 }
+
 
 /* ABBONAMENTI */
 .abb-container{
@@ -318,6 +349,19 @@ h3{
   background-color: #e06316 ; 
 }
 
+.abb-card {
+  border: 2px solid #cfc8c8;
+  border-radius:  20px;
+  overflow: hidden;
+  width: 300px; 
+  box-shadow: -3px 5px 10px 0 #444242cf;
+  margin: 20px auto;
+  width: 420px;
+}
+.dettagli{
+  color: #E57600;
+  margin-bottom: 0.8em;
+}
 
 .abb-title{
   font-family: "Special Elite", cursive;

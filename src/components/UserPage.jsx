@@ -7,7 +7,7 @@ import {
   uploadUserImage,
   logoutAction,
 } from "../redux/actions";
-import { Form, Modal, Button } from "react-bootstrap";
+import { Form, Modal, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
@@ -26,7 +26,6 @@ const UserPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    // Quando carichi i dati dell'utente, imposta solo i campi che l'utente può modificare
     if (userData) {
       setForm({
         nome: userData.nome || "",
@@ -89,40 +88,73 @@ const UserPage = () => {
   };
 
   return (
-    <div className="user-page mt-4">
+    <Container fluid className="user-page">
       {userData ? (
         <>
-          <h1>Ciao {userData.nome}</h1>
+          <Row className="">
+            <h1 className="titolo-shop">Ciao {userData.nome}</h1>
+            <Col xs={12} md={6} lg={4}>
+              <div className="user-card d-flex flex-column align-items-center text-center p-4">
+                <div className="position-relative user-image-container">
+                  <img
+                    src={userData.avatar}
+                    alt="Avatar dell'utente"
+                    className="user-image mb-2"
+                  />
+                  <label htmlFor="file-upload" className="i-label">
+                    <i className="i-foto bi bi-plus-circle-fill"></i>
+                    <input
+                      type="file"
+                      id="file-upload"
+                      onChange={handleImageUpload}
+                    />
+                  </label>
+                </div>
 
-          <div className="user-card">
-            <img src={userData.avatar} alt="Avatar dell'utente" />
-            <input type="file" onChange={handleImageUpload} />
-            <div className="user-card-details">
-              <p>Nome: {userData.nome}</p>
-              <p>Cognome: {userData.cognome}</p>
-              <p>Email: {userData.email}</p>
-              <div>
-                <Button variant="primary" onClick={handleShow}>
-                  Modifica Profilo
-                </Button>
-                <Button variant="danger" onClick={handleDeleteUser}>
-                  Elimina Account
-                </Button>
+                <h3>
+                  {userData.nome} {userData.cognome}
+                </h3>
+                <p>
+                  <i className="email bi bi-envelope-open-heart me-1"></i>
+                  {userData.email}
+                </p>
+
+                <div className="mt-2 d-flex">
+                  <button onClick={handleShow} className="user-btn me-3">
+                    <i className="bi bi-pencil-square"></i>
+                  </button>
+                  <button onClick={handleDeleteUser} className="user-btn">
+                    <i className=" bi bi-trash-fill"></i>
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
+            </Col>
 
-          {userData.abbonamento && (
-            <div className="abbonamento-details">
-              <h3>Dettagli Abbonamento</h3>
-              <p>
-                Tipologia Abbonamento: {userData.abbonamento.tipoAbbonamento}
-              </p>
-              <p>Prezzo: {userData.abbonamento.prezzo} €</p>
-              <p>Data Inizio: {userData.abbonamento.dataInizio}</p>
-              <p>Data Fine: {userData.abbonamento.dataFine}</p>
-            </div>
-          )}
+            {userData.abbonamento && (
+              <Col xs={12} md={6} lg={4}>
+                <div className="abb-card d-flex flex-column align-items-center text-center p-4">
+                  <h3 className="dettagli">Dettagli Abbonamento</h3>
+                  <p className="abbonamento-info">
+                    Tipologia Abbonamento{" "}
+                    <i className="email bi bi-check2-square"></i>:{" "}
+                    {userData.abbonamento.tipoAbbonamento}
+                  </p>
+                  <p className="abbonamento-info">
+                    Prezzo<i className="email bi bi-currency-euro"></i>:{" "}
+                    {userData.abbonamento.prezzo}
+                  </p>
+                  <p className="abbonamento-info">
+                    Data Inizio <i className="email bi bi-calendar2-heart"></i>:{" "}
+                    {userData.abbonamento.dataInizio}
+                  </p>
+                  <p className="abbonamento-info">
+                    Data Fine <i className="email bi bi-calendar-x"></i>:{" "}
+                    {userData.abbonamento.dataFine}
+                  </p>
+                </div>
+              </Col>
+            )}
+          </Row>
         </>
       ) : (
         <p>Caricamento...</p>
@@ -173,7 +205,7 @@ const UserPage = () => {
           </Form>
         </Modal.Body>
       </Modal>
-    </div>
+    </Container>
   );
 };
 
