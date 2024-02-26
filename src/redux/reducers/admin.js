@@ -2,6 +2,9 @@ import {
   DELETE_UTENTE,
   DELETE_UTENTE_FAILURE,
   DELETE_UTENTE_SUCCESS,
+  FETCH_ADMIN_ABBONAMENTI,
+  FETCH_ADMIN_ABBONAMENTI_FAILURE,
+  FETCH_ADMIN_ABBONAMENTI_SUCCESS,
   FETCH_UTENTI,
   FETCH_UTENTI_FAILURE,
   FETCH_UTENTI_SUCCESS,
@@ -12,6 +15,7 @@ import {
 
 const initialState = {
   utenti: [],
+  abbonamenti: [],
   loading: false,
   error: null,
   totalPages: 0,
@@ -80,6 +84,26 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         loading: false,
+      };
+
+    // Abbonamenti
+    case FETCH_ADMIN_ABBONAMENTI:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FETCH_ADMIN_ABBONAMENTI_SUCCESS:
+      return {
+        ...state,
+        abbonamenti: action.payload.content,
+        totalPages: action.payload.totalPages,
+        loading: false,
+      };
+    case FETCH_ADMIN_ABBONAMENTI_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
 
     default:

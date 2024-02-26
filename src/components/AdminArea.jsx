@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";
 import AdminUser from "./AdminUser";
+import AdminAbbonamenti from "./AdminAbbonamenti";
 
 const AdminArea = () => {
   const [activeSection, setActiveSection] = useState("utenti");
@@ -15,7 +16,7 @@ const AdminArea = () => {
         return <AdminUser />;
 
       case "abbonamenti":
-        return <div>Lista Abbonamenti</div>;
+        return <AdminAbbonamenti />;
 
       case "corsi":
         return <div>Lista Corsi</div>;

@@ -7,6 +7,11 @@ export const UPDATE_UTENTE_FAILURE = "UPDATE_UTENTE_FAILURE";
 export const DELETE_UTENTE = "DELETE_UTENTE";
 export const DELETE_UTENTE_SUCCESS = "DELETE_UTENTE_SUCCESS";
 export const DELETE_UTENTE_FAILURE = "DELETE_UTENTE_FAILURE";
+// GESTIONE ABBONAMENTI
+export const FETCH_ADMIN_ABBONAMENTI = "FETCH_ADMIN_ABBONAMENTI";
+export const FETCH_ADMIN_ABBONAMENTI_SUCCESS =
+  "FETCH_ADMIN_ABBONAMENTI_SUCCESS";
+export const FETCH_ADMIN_ABBONAMENTI_FAILURE = "FETCH_ABBONAMENTI_FAILURE";
 
 export const fetchUtenti =
   (page = 0, size = 10) =>
@@ -97,3 +102,32 @@ export const deleteUtente = (id) => async (dispatch, getState) => {
     });
   }
 };
+// gestione abbonamenti
+
+export const fetchAdminAbbonamenti =
+  (page = 0, size = 10, orderBy = "id") =>
+  async (dispatch, getState) => {
+    dispatch({ type: FETCH_ADMIN_ABBONAMENTI });
+    try {
+      const token = getState().user.token;
+      const res = await fetch(
+        `http://localhost:3001/abbonamenti?page=${page}&size=${size}&orderBy=${orderBy}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!res.ok) {
+        throw new Error("Errore nel recupero degli abbonamenti");
+      }
+      const data = await res.json();
+      dispatch({ type: FETCH_ADMIN_ABBONAMENTI_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: FETCH_ADMIN_ABBONAMENTI_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
