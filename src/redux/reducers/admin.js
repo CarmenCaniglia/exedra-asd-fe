@@ -1,4 +1,7 @@
 import {
+  DELETE_UTENTE,
+  DELETE_UTENTE_FAILURE,
+  DELETE_UTENTE_SUCCESS,
   FETCH_UTENTI,
   FETCH_UTENTI_FAILURE,
   FETCH_UTENTI_SUCCESS,
@@ -57,6 +60,26 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         updateLoading: false,
         updateError: action.payload,
+      };
+
+    case DELETE_UTENTE:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case DELETE_UTENTE_SUCCESS:
+      return {
+        ...state,
+        utenti: state.utenti.filter((utente) => utente.id !== action.payload),
+        loading: false,
+      };
+
+    case DELETE_UTENTE_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
       };
 
     default:

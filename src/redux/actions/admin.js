@@ -4,6 +4,9 @@ export const FETCH_UTENTI_FAILURE = "FETCH_UTENTI_FAILURE";
 export const UPDATE_UTENTE = "UPDATE_UTENTE";
 export const UPDATE_UTENTE_SUCCESS = "UPDATE_UTENTE_SUCCESS";
 export const UPDATE_UTENTE_FAILURE = "UPDATE_UTENTE_FAILURE";
+export const DELETE_UTENTE = "DELETE_UTENTE";
+export const DELETE_UTENTE_SUCCESS = "DELETE_UTENTE_SUCCESS";
+export const DELETE_UTENTE_FAILURE = "DELETE_UTENTE_FAILURE";
 
 export const fetchUtenti =
   (page = 0, size = 10) =>
@@ -65,6 +68,31 @@ export const updateUtente = (id, utenteData) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: UPDATE_UTENTE_FAILURE,
+      payload: error.message,
+    });
+  }
+};
+
+export const deleteUtente = (id) => async (dispatch, getState) => {
+  dispatch({ type: DELETE_UTENTE });
+  try {
+    const token = getState().user.token;
+    const res = await fetch(`http://localhost:3001/utenti/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) {
+      throw new Error("Errore della cancellazione dell'utente!");
+    }
+    dispatch({
+      type: DELETE_UTENTE_SUCCESS,
+      payload: id,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_UTENTE_FAILURE,
       payload: error.message,
     });
   }

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUtenti, updateUtente } from "../redux/actions/admin";
+import {
+  deleteUtente,
+  fetchUtenti,
+  updateUtente,
+} from "../redux/actions/admin";
 import {
   Button,
   Col,
@@ -66,6 +70,10 @@ const AdminUser = () => {
       });
   };
 
+  const handleDelete = (id) => {
+    dispatch(deleteUtente(id));
+  };
+
   return (
     <Container>
       <Row>
@@ -100,7 +108,11 @@ const AdminUser = () => {
                       >
                         Modifica
                       </Button>
-                      <Button variant="danger" size="sm">
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => handleDelete(utente.id)}
+                      >
                         Elimina
                       </Button>
                     </td>
