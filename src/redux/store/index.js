@@ -14,12 +14,14 @@ import {
   persistReducer,
   persistStore,
 } from "redux-persist";
+import adminReducer from "../reducers/admin";
 
 const bigReducer = combineReducers({
   user: userReducer,
   cart: shopReducer,
   prodotto: prodottoReducer,
   abbonamenti: abbonamentoReducer,
+  admin: adminReducer,
 });
 
 const persistConfig = {

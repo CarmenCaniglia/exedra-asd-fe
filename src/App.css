@@ -433,3 +433,8 @@ td{
   text-align: center;
   font-weight: bold;
 }
+
+/* ADMIN */
+.admin-sections{
+  margin-top:5em;
+}
