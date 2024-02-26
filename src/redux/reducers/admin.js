@@ -2,6 +2,9 @@ import {
   FETCH_UTENTI,
   FETCH_UTENTI_FAILURE,
   FETCH_UTENTI_SUCCESS,
+  UPDATE_UTENTE,
+  UPDATE_UTENTE_FAILURE,
+  UPDATE_UTENTE_SUCCESS,
 } from "../actions/admin";
 
 const initialState = {
@@ -9,6 +12,8 @@ const initialState = {
   loading: false,
   error: null,
   totalPages: 0,
+  updateLoading: false,
+  updateError: null,
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -34,6 +39,26 @@ const adminReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+
+    case UPDATE_UTENTE:
+      return {
+        ...state,
+        updateLoading: true,
+        updateError: null,
+      };
+    case UPDATE_UTENTE_SUCCESS:
+      return {
+        ...state,
+        updateLoading: false,
+      };
+
+    case UPDATE_UTENTE_FAILURE:
+      return {
+        ...state,
+        updateLoading: false,
+        updateError: action.payload,
+      };
+
     default:
       return state;
   }

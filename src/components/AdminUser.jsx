@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUtenti } from "../redux/actions/admin";
+import { fetchUtenti, updateUtente } from "../redux/actions/admin";
 import {
   Button,
   Col,
   Container,
+  Form,
+  Modal,
   Pagination,
   Row,
   Table,
@@ -16,6 +18,8 @@ const AdminUser = () => {
     (state) => state.admin
   );
   const [currentPage, setCurrentPage] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     dispatch(fetchUtenti(currentPage));
@@ -41,12 +45,33 @@ const AdminUser = () => {
   if (loading) return <div>Caricamento...</div>;
   if (error) return <div>Errore: {error}</div>;
 
+  const handleOpenModal = (utente) => {
+    setSelectedUser(utente);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedUser(null);
+  };
+
+  const handleSubmit = () => {
+    dispatch(updateUtente(selectedUser.id, selectedUser))
+      .then(() => {
+        dispatch(fetchUtenti(currentPage)); // Rifetch dopo l'update
+        handleCloseModal();
+      })
+      .catch((error) => {
+        console.error("Errore nell'aggiornamento dell'utente:", error);
+      });
+  };
+
   return (
     <Container>
       <Row>
         <Col>
           <h2>Gestione Utenti</h2>
-          <Table striped bordered hover responsive>
+          <Table striped bordered responsive>
             <thead>
               <tr>
                 <th>ID</th>
@@ -71,6 +96,7 @@ const AdminUser = () => {
                         variant="primary"
                         size="sm"
                         style={{ marginRight: "5px" }}
+                        onClick={() => handleOpenModal(utente)}
                       >
                         Modifica
                       </Button>
@@ -82,6 +108,75 @@ const AdminUser = () => {
                 ))}
             </tbody>
           </Table>
+          <Modal show={showModal} onHide={handleCloseModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>Modifica Utente</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Group className="mb-3">
+                  <Form.Label>Nome</Form.Label>
+                  <Form.Control
+                    type="text"
+                    defaultValue={selectedUser?.nome}
+                    onChange={(e) =>
+                      setSelectedUser({ ...selectedUser, nome: e.target.value })
+                    }
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Cognome</Form.Label>
+                  <Form.Control
+                    type="text"
+                    defaultValue={selectedUser?.cognome}
+                    onChange={(e) =>
+                      setSelectedUser({
+                        ...selectedUser,
+                        cognome: e.target.value,
+                      })
+                    }
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    defaultValue={selectedUser?.email}
+                    onChange={(e) =>
+                      setSelectedUser({
+                        ...selectedUser,
+                        email: e.target.value,
+                      })
+                    }
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Ruolo</Form.Label>
+                  <Form.Select
+                    defaultValue={selectedUser?.role}
+                    onChange={(e) =>
+                      setSelectedUser({ ...selectedUser, role: e.target.value })
+                    }
+                  >
+                    <option>ADMIN</option>
+                    <option>USER</option>
+                  </Form.Select>
+                </Form.Group>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Chiudi
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => handleSubmit(selectedUser)}
+              >
+                Salva Modifiche
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
           <Pagination>{items}</Pagination>
         </Col>
       </Row>
