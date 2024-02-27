@@ -20,8 +20,7 @@ export const fetchAbbonamenti = () => {
     try {
       const res = await fetch("http://localhost:3001/abbonamenti", {
         headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzA4NDUzMTg4LCJleHAiOjE3MDkwNTc5ODh9.wDY_KQsORxGqeDeg-O7VJ0EYg2EurOWjezfa3V9YBYU",
+          Authorization: `Bearer ${import.meta.env.VITE_AUTHORIZATION_TOKEN}`,
           "Content-Type": "application/json",
         },
       });
