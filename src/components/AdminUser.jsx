@@ -40,6 +40,7 @@ const AdminUser = () => {
         key={number}
         active={number === currentPage + 1}
         onClick={() => handlePageClick(number - 1)}
+        className="custom-pagination"
       >
         {number}
       </Pagination.Item>
@@ -71,23 +72,28 @@ const AdminUser = () => {
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteUtente(id));
+    const confirmDelete = window.confirm(
+      "Sei sicuro di voler eliminare questo utente?"
+    );
+    if (confirmDelete) {
+      dispatch(deleteUtente(id));
+    }
   };
 
   return (
     <Container>
       <Row>
         <Col>
-          <h2>Gestione Utenti</h2>
+          <h2 className="titolo-shop mb-4">Gestione Utenti</h2>
           <Table striped bordered responsive>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Email</th>
-                <th>Ruolo</th>
-                <th>Azioni</th>
+                <th className="titolo-tab">ID</th>
+                <th className="titolo-tab">Nome</th>
+                <th className="titolo-tab">Cognome</th>
+                <th className="titolo-tab">Email</th>
+                <th className="titolo-tab">Ruolo</th>
+                <th className="titolo-tab">Azioni</th>
               </tr>
             </thead>
             <tbody>
@@ -100,21 +106,18 @@ const AdminUser = () => {
                     <td>{utente.email}</td>
                     <td>{utente.role}</td>
                     <td>
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        style={{ marginRight: "5px" }}
+                      <button
+                        className="admin-btn"
                         onClick={() => handleOpenModal(utente)}
                       >
-                        Modifica
-                      </Button>
-                      <Button
-                        variant="danger"
-                        size="sm"
+                        <i className="bi bi-pencil-square"></i>
+                      </button>
+                      <button
+                        className="admin-btn"
                         onClick={() => handleDelete(utente.id)}
                       >
-                        Elimina
-                      </Button>
+                        <i className=" bi bi-trash-fill"></i>
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -189,7 +192,7 @@ const AdminUser = () => {
             </Modal.Footer>
           </Modal>
 
-          <Pagination>{items}</Pagination>
+          <Pagination className="custom-pagination">{items}</Pagination>
         </Col>
       </Row>
     </Container>

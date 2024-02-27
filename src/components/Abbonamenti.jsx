@@ -23,7 +23,23 @@ const Abbonamenti = () => {
       tipoAbbonamento,
       userId,
     };
-    dispatch(salvaAbbonamento(abbonamentoData));
+
+    const confermaAcquisto = window.confirm(
+      "Sei sicuro di voler acquistare questa tipologia di abbonamento?"
+    );
+
+    if (confermaAcquisto) {
+      dispatch(salvaAbbonamento(abbonamentoData))
+        .then(() => {
+          window.alert("Abbonamento associato con successo");
+        })
+        .catch((error) => {
+          console.error(
+            "Errore durante l'associazione dell'abbonamento:",
+            error
+          );
+        });
+    }
   };
 
   if (error) {

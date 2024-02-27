@@ -51,7 +51,7 @@ export const getProdottiAction = () => {
       const resp = await fetch("http://localhost:3001/prodotti", {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzA4MzMzNDk4LCJleHAiOjE3MDg5MzgyOTh9.wAay29oYqaotKgZ28boGxsh04zIe3bKGD9TW2j2prgU", // Add your token here
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzA5MDM4MjU1LCJleHAiOjE3MTExMTE4NTV9.5KpAH4Vwy4VqFVBsUZRNPvnB8SCWSOg16d6NBvTwKOs", // Add your token here
           "Content-Type": "application/json",
         },
       });

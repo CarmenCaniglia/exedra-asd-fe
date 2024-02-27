@@ -438,3 +438,61 @@ td{
 .admin-sections{
   margin-top:5em;
 }
+
+.link{
+  text-decoration: none !important;
+  color: #E57600 !important;
+  font-family: "Special Elite", cursive;
+}
+
+.link:hover{
+  transform: scale(1.05);
+  color: black !important;
+}
+
+.admin-btn {
+  color: #E57600; 
+  border:none;
+  background-color: transparent; 
+  
+  font-size: 1.2em;
+
+}
+
+.admin-btn:hover {
+  color: black; 
+   
+}
+
+.pagination{
+  justify-content: center;
+}
+
+.custom-pagination .page-link {
+  --bs-pagination-color: black; 
+  --bs-pagination-bg: transparent;
+  --bs-pagination-border-color: transparent; 
+  --bs-pagination-hover-color: #E57600; 
+  --bs-pagination-hover-bg: transparent; 
+  --bs-pagination-hover-border-color: transparent;
+  transition: transform 0.2s;
+  outline: none;
+}
+
+.custom-pagination .page-link:focus {
+  --bs-pagination-focus-bg: transparent; 
+  --bs-pagination-focus-border-color: transparent; 
+  box-shadow: none; 
+}
+
+.custom-pagination .page-link:hover {
+  transform: scale(1.1); 
+}
+
+.custom-pagination .page-item.active .page-link {
+  --bs-pagination-active-color: #E57600 ; 
+  --bs-pagination-active-bg: transparent; 
+  --bs-pagination-active-border-color: transparent; 
+  transform: scale(1.1);
+  font-weight: bold;
+}

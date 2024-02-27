@@ -31,18 +31,26 @@ const AdminArea = () => {
   return (
     <Container className="admin-sections">
       <Nav className="justify-content-center" onSelect={handleSelect}>
-        <Row>
-          <Col xs={12} md={3}>
-            <Nav.Link eventKey="utenti">Utenti</Nav.Link>
+        <Row className="d-flex justify-content-between mb-3">
+          <Col xs="auto" className=" text-center">
+            <Nav.Link eventKey="utenti" className="link">
+              Utenti
+            </Nav.Link>
           </Col>
-          <Col xs={12} md={3}>
-            <Nav.Link eventKey="abbonamenti">Abbonamenti</Nav.Link>
+          <Col xs="auto" className=" text-center flex-grow-1">
+            <Nav.Link eventKey="abbonamenti" className="link">
+              Abbonamenti
+            </Nav.Link>
           </Col>
-          <Col xs={12} md={3}>
-            <Nav.Link eventKey="corsi">Corsi</Nav.Link>
+          <Col xs="auto" className=" text-center">
+            <Nav.Link eventKey="corsi" className="link">
+              Corsi
+            </Nav.Link>
           </Col>
-          <Col xs={12} md={3}>
-            <Nav.Link eventKey="shop">Shop</Nav.Link>
+          <Col xs="auto" className=" text-center">
+            <Nav.Link eventKey="shop" className="link">
+              Shop
+            </Nav.Link>
           </Col>
         </Row>
       </Nav>

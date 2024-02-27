@@ -8,6 +8,9 @@ import {
   FETCH_UTENTI,
   FETCH_UTENTI_FAILURE,
   FETCH_UTENTI_SUCCESS,
+  UPDATE_ADMIN_ABBONAMENTO,
+  UPDATE_ADMIN_ABBONAMENTO_FAILURE,
+  UPDATE_ADMIN_ABBONAMENTO_SUCCESS,
   UPDATE_UTENTE,
   UPDATE_UTENTE_FAILURE,
   UPDATE_UTENTE_SUCCESS,
@@ -105,6 +108,21 @@ const adminReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+
+    case UPDATE_ADMIN_ABBONAMENTO:
+      return { ...state, loading: true };
+
+    case UPDATE_ADMIN_ABBONAMENTO_SUCCESS:
+      console.log("Payload:", action.payload); // Correzione: Aggiorna l'abbonamento modificato nell'array di abbonamenti qui
+      {
+        const updatedAbbonamenti = state.abbonamenti.map((abbonamento) =>
+          abbonamento.id === action.payload.id ? action.payload : abbonamento
+        );
+        return { ...state, loading: false, abbonamenti: updatedAbbonamenti };
+      }
+
+    case UPDATE_ADMIN_ABBONAMENTO_FAILURE:
+      return { ...state, loading: false, error: action.payload };
 
     default:
       return state;

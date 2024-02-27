@@ -12,6 +12,11 @@ export const FETCH_ADMIN_ABBONAMENTI = "FETCH_ADMIN_ABBONAMENTI";
 export const FETCH_ADMIN_ABBONAMENTI_SUCCESS =
   "FETCH_ADMIN_ABBONAMENTI_SUCCESS";
 export const FETCH_ADMIN_ABBONAMENTI_FAILURE = "FETCH_ABBONAMENTI_FAILURE";
+export const UPDATE_ADMIN_ABBONAMENTO = "UPDATE_ADMIN_ABBONAMENTO";
+export const UPDATE_ADMIN_ABBONAMENTO_SUCCESS =
+  "UPDATE_ADMIN_ABBONAMENTO_SUCCESS";
+export const UPDATE_ADMIN_ABBONAMENTO_FAILURE =
+  "UPDATE_ADMIN_ABBONAMENTO_FAILURE";
 
 export const fetchUtenti =
   (page = 0, size = 10) =>
@@ -124,9 +129,54 @@ export const fetchAdminAbbonamenti =
       }
       const data = await res.json();
       dispatch({ type: FETCH_ADMIN_ABBONAMENTI_SUCCESS, payload: data });
+      console.log(data);
     } catch (error) {
       dispatch({
         type: FETCH_ADMIN_ABBONAMENTI_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
+
+export const updateAdminAbbonamento =
+  (id, abbonamentoData, utenteId) => async (dispatch, getState) => {
+    console.log("ID before dispatch:", id);
+    dispatch({ type: UPDATE_ADMIN_ABBONAMENTO });
+    const requestBody = {
+      ...abbonamentoData,
+      utenteId: utenteId, // Assumendo che il backend richieda questo campo
+    };
+    try {
+      const token = getState().user.token;
+      const res = await fetch(`http://localhost:3001/abbonamenti/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error(
+          "Errore nell'aggiornamento:",
+          errorData.message || "Errore sconosciuto"
+        );
+        throw new Error(
+          errorData.message ||
+            "Errore nell'aggiornamento dei dati dell'abbonamento!"
+        );
+      }
+      const updatedAbbonamento = await res.json();
+      console.log("Updated abbonamento:", updatedAbbonamento);
+      dispatch({
+        type: UPDATE_ADMIN_ABBONAMENTO_SUCCESS,
+        payload: updatedAbbonamento,
+      });
+      console.log(updatedAbbonamento);
+    } catch (error) {
+      dispatch({
+        type: UPDATE_ADMIN_ABBONAMENTO_FAILURE,
         payload: error.message,
       });
     }
