@@ -179,6 +179,11 @@ const adminReducer = (state = initialState, action) => {
         loading: false,
         error: null,
       };
+    case "DELETE_CORSO_SUCCESS":
+      return {
+        ...state,
+        corsi: state.corsi.filter((corso) => corso.id !== action.payload),
+      };
 
     default:
       return state;

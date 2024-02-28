@@ -8,7 +8,12 @@ import {
   Table,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { createCorso, fetchCorsi, updateCorso } from "../redux/actions/admin";
+import {
+  createCorso,
+  deleteCorso,
+  fetchCorsi,
+  updateCorso,
+} from "../redux/actions/admin";
 import { useEffect, useState } from "react";
 
 const AdminCorsi = () => {
@@ -75,6 +80,24 @@ const AdminCorsi = () => {
       });
   };
 
+  const handleDelete = (id) => {
+    // Mostra un dialogo di conferma prima di procedere
+    const isConfirmed = window.confirm(
+      "Sei sicuro di voler eliminare questo corso?"
+    );
+    if (isConfirmed) {
+      dispatch(deleteCorso(id))
+        .then(() => {
+          alert("Corso eliminato con successo!");
+          dispatch(fetchCorsi()); // Rifetch l'elenco dei corsi dopo l'eliminazione
+        })
+        .catch((error) => {
+          console.error("Errore durante l'eliminazione del corso:", error);
+          alert("Si è verificato un errore durante l'eliminazione!");
+        });
+    }
+  };
+
   return (
     <Container>
       <Row>
@@ -115,7 +138,10 @@ const AdminCorsi = () => {
                       >
                         <i className="bi bi-pencil-square"></i>
                       </button>
-                      <button className="admin-btn">
+                      <button
+                        className="admin-btn"
+                        onClick={() => handleDelete(corso.id)}
+                      >
                         <i className="bi bi-trash-fill"></i>
                       </button>
                     </td>

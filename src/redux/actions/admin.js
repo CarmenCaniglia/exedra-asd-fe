@@ -25,6 +25,7 @@ export const UPDATE_CORSO = "UPDATE_CORSO";
 export const UPDATE_CORSO_SUCCESS = "UPDATE_CORSO_SUCCESS";
 export const UPDATE_CORSO_FAILURE = "UPDATE_CORSO_FAILURE";
 export const CREATE_CORSO_SUCCESS = "CREATE_CORSO_SUCCESS";
+export const DELETE_CORSO_SUCCESS = "DELETE_CORSO_SUCCESS";
 
 export const fetchUtenti =
   (page = 0, size = 10) =>
@@ -256,5 +257,21 @@ export const createCorso = (corsoData) => async (dispatch, getState) => {
     dispatch({ type: "CREATE_CORSO_SUCCESS", payload: data });
   } catch (error) {
     console.error("Errore nella creazione del corso:", error);
+  }
+};
+
+export const deleteCorso = (id) => async (dispatch, getState) => {
+  try {
+    const token = getState().user.token;
+    await fetch(`http://localhost:3001/corsi/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    dispatch({ type: DELETE_CORSO_SUCCESS, payload: id });
+  } catch (error) {
+    console.error("Errore nell'eliminazione del corso:", error);
   }
 };
