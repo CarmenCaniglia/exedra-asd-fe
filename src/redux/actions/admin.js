@@ -17,6 +17,10 @@ export const UPDATE_ADMIN_ABBONAMENTO_SUCCESS =
   "UPDATE_ADMIN_ABBONAMENTO_SUCCESS";
 export const UPDATE_ADMIN_ABBONAMENTO_FAILURE =
   "UPDATE_ADMIN_ABBONAMENTO_FAILURE";
+// GESTIONE CORSI
+export const FETCH_ADMIN_CORSI = "FETCH_ADMIN_CORSI";
+export const FETCH_ADMIN_CORSI_SUCCESS = "FETCH_ADMIN_CORSI_SUCCESS";
+export const FETCH_ADMIN_CORSI_FAILURE = "FETCH_ADMIN_CORSI_FAILURE";
 
 export const fetchUtenti =
   (page = 0, size = 10) =>
@@ -144,7 +148,7 @@ export const updateAdminAbbonamento =
     dispatch({ type: UPDATE_ADMIN_ABBONAMENTO });
     const requestBody = {
       ...abbonamentoData,
-      utenteId: utenteId, // Assumendo che il backend richieda questo campo
+      utenteId: utenteId,
     };
     try {
       const token = getState().user.token;
@@ -181,3 +185,33 @@ export const updateAdminAbbonamento =
       });
     }
   };
+
+// gestione corsi
+export const fetchCorsi = () => {
+  return async (dispatch, getState) => {
+    dispatch({ type: FETCH_ADMIN_CORSI });
+    try {
+      const token = getState().user.token;
+      const res = await fetch(`http://localhost:3001/corsi?size=1000`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        throw new Error("Errore nel recupero dei corsi!");
+      }
+      const data = await res.json();
+
+      dispatch({
+        type: FETCH_ADMIN_CORSI_SUCCESS,
+        payload: { corsi: data.content },
+      });
+    } catch (error) {
+      dispatch({
+        type: FETCH_ADMIN_CORSI_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
+};

@@ -5,6 +5,9 @@ import {
   FETCH_ADMIN_ABBONAMENTI,
   FETCH_ADMIN_ABBONAMENTI_FAILURE,
   FETCH_ADMIN_ABBONAMENTI_SUCCESS,
+  FETCH_ADMIN_CORSI,
+  FETCH_ADMIN_CORSI_FAILURE,
+  FETCH_ADMIN_CORSI_SUCCESS,
   FETCH_UTENTI,
   FETCH_UTENTI_FAILURE,
   FETCH_UTENTI_SUCCESS,
@@ -19,6 +22,7 @@ import {
 const initialState = {
   utenti: [],
   abbonamenti: [],
+  corsi: [],
   loading: false,
   error: null,
   totalPages: 0,
@@ -123,6 +127,27 @@ const adminReducer = (state = initialState, action) => {
 
     case UPDATE_ADMIN_ABBONAMENTO_FAILURE:
       return { ...state, loading: false, error: action.payload };
+
+    //corsi
+
+    case FETCH_ADMIN_CORSI:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FETCH_ADMIN_CORSI_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        corsi: action.payload.corsi,
+      };
+    case FETCH_ADMIN_CORSI_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
     default:
       return state;

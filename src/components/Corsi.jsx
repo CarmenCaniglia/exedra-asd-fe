@@ -8,8 +8,7 @@ const Corsi = () => {
   useEffect(() => {
     fetch("http://localhost:3001/corsi?size=1000", {
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0IiwiaWF0IjoxNzA4NTk4ODg1LCJleHAiOjE3MTA2NzI0ODV9.WwOU0ayTIgqswg45r5k2aCpX7TEXOHw1itWUm-AHHY0",
+        Authorization: `Bearer ${import.meta.env.VITE_AUTHORIZATION_TOKEN}`,
       },
     })
       .then((res) => {
