@@ -21,6 +21,10 @@ export const UPDATE_ADMIN_ABBONAMENTO_FAILURE =
 export const FETCH_ADMIN_CORSI = "FETCH_ADMIN_CORSI";
 export const FETCH_ADMIN_CORSI_SUCCESS = "FETCH_ADMIN_CORSI_SUCCESS";
 export const FETCH_ADMIN_CORSI_FAILURE = "FETCH_ADMIN_CORSI_FAILURE";
+export const UPDATE_CORSO = "UPDATE_CORSO";
+export const UPDATE_CORSO_SUCCESS = "UPDATE_CORSO_SUCCESS";
+export const UPDATE_CORSO_FAILURE = "UPDATE_CORSO_FAILURE";
+export const CREATE_CORSO_SUCCESS = "CREATE_CORSO_SUCCESS";
 
 export const fetchUtenti =
   (page = 0, size = 10) =>
@@ -214,4 +218,43 @@ export const fetchCorsi = () => {
       });
     }
   };
+};
+
+export const updateCorso = (corsoData) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: UPDATE_CORSO });
+    try {
+      const token = getState().user.token;
+      const res = await fetch(`http://localhost:3001/corsi/${corsoData.id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(corsoData),
+      });
+      const updatedCorso = await res.json();
+      dispatch({ type: UPDATE_CORSO_SUCCESS, payload: updatedCorso });
+    } catch (error) {
+      dispatch({ type: UPDATE_CORSO_FAILURE, payload: error });
+    }
+  };
+};
+
+export const createCorso = (corsoData) => async (dispatch, getState) => {
+  try {
+    const token = getState().user.token;
+    const res = await fetch("http://localhost:3001/corsi", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(corsoData),
+    });
+    const data = await res.json();
+    dispatch({ type: "CREATE_CORSO_SUCCESS", payload: data });
+  } catch (error) {
+    console.error("Errore nella creazione del corso:", error);
+  }
 };

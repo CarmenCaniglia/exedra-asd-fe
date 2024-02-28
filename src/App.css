@@ -500,6 +500,9 @@ td{
 .nome-col{
   width: 20%;
 }
+.partecipanti-col{
+  width: 10%;
+}
 
 .descrizione{
   white-space: nowrap; /* Mantiene il testo su una singola riga */

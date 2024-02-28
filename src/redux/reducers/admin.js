@@ -1,4 +1,5 @@
 import {
+  CREATE_CORSO_SUCCESS,
   DELETE_UTENTE,
   DELETE_UTENTE_FAILURE,
   DELETE_UTENTE_SUCCESS,
@@ -14,6 +15,9 @@ import {
   UPDATE_ADMIN_ABBONAMENTO,
   UPDATE_ADMIN_ABBONAMENTO_FAILURE,
   UPDATE_ADMIN_ABBONAMENTO_SUCCESS,
+  UPDATE_CORSO,
+  UPDATE_CORSO_FAILURE,
+  UPDATE_CORSO_SUCCESS,
   UPDATE_UTENTE,
   UPDATE_UTENTE_FAILURE,
   UPDATE_UTENTE_SUCCESS,
@@ -147,6 +151,33 @@ const adminReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+
+    case UPDATE_CORSO:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case UPDATE_CORSO_SUCCESS:
+      return {
+        ...state,
+        corsi: state.corsi.filter((corso) => corso.id !== action.payload),
+        loading: false,
+      };
+    case UPDATE_CORSO_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CREATE_CORSO_SUCCESS:
+      return {
+        ...state,
+        corsi: [...state.corsi, action.payload],
+        loading: false,
+        error: null,
       };
 
     default:
