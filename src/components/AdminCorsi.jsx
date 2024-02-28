@@ -20,7 +20,7 @@ const AdminCorsi = () => {
             <thead>
               <tr>
                 <th className="titolo-tab">Id</th>
-                <th className="titolo-tab">Nome</th>
+                <th className="titolo-tab nome-col">Nome</th>
                 <th className="titolo-tab">Descrizione</th>
                 <th className="titolo-tab">Orario</th>
                 <th className="titolo-tab">Giorno</th>
@@ -33,7 +33,7 @@ const AdminCorsi = () => {
                   <tr key={index}>
                     <td>{corso.id}</td>
                     <td>{corso.nome}</td>
-                    <td>{corso.descrizione}</td>
+                    <td className="descrizione">{corso.descrizione}</td>
                     <td>{corso.orario}</td>
                     <td>{corso.giorno}</td>
                     <td>

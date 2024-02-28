@@ -496,3 +496,16 @@ td{
   transform: scale(1.1);
   font-weight: bold;
 }
+
+.nome-col{
+  width: 20%;
+}
+
+.descrizione{
+  white-space: nowrap; /* Mantiene il testo su una singola riga */
+  overflow: hidden; /* Nasconde il testo che supera la larghezza della cella */
+  text-overflow: ellipsis; /* Aggiunge "..." alla fine del testo tagliato */
+  max-width: 0;
+  padding-left: 1em !important;
+  padding-right: 1em !important;
+}
