@@ -16,7 +16,7 @@ const Prodotti = ({ setSelected, selected }) => {
   };
 
   return (
-    <div>
+    <div className="scroll">
       {prodotti.map((prodotto, index) => (
         <Card
           key={index}

@@ -6,7 +6,7 @@ const DettagliProdotto = ({ prodottoSelected }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="mt-3 mb-4 mb-lg-0">
+    <div className="mt-3 mb-4 mb-lg-0 ms-5">
       {prodottoSelected ? (
         <>
           <Row>
@@ -29,26 +29,30 @@ const DettagliProdotto = ({ prodottoSelected }) => {
             </Col>
             <Col
               sm={8}
-              className="d-flex flex-column align-items-center justify-content-start"
+              className="d-flex flex-column align-items-start justify-content-around"
             >
-              <p>
-                <span className="fw-bold">Descrizione:</span>&nbsp;
-                {prodottoSelected.descrizione}
-              </p>
-              <p>
-                <span className="fw-bold">Prezzo:</span>&nbsp;
-                {prodottoSelected.prezzo}€
-              </p>
-              <button
-                className="custom-btn2 d-flex align-items-center "
-                onClick={() => {
-                  dispatch(addToCartAction(prodottoSelected));
-                  alert("Prodotto aggiunto al carrello");
-                }}
-              >
-                <span className="me-2">AGGIUNGI AL</span>
-                <i className="bi bi-cart"></i>
-              </button>
+              <div>
+                <p>
+                  <span className="fw-bold">Descrizione:</span>&nbsp;
+                  {prodottoSelected.descrizione}
+                </p>
+                <p>
+                  <span className="fw-bold">Prezzo:</span>&nbsp;
+                  {prodottoSelected.prezzo}€
+                </p>
+              </div>
+              <div>
+                <button
+                  className="custom-btn2 d-flex align-items-center "
+                  onClick={() => {
+                    dispatch(addToCartAction(prodottoSelected));
+                    alert("Prodotto aggiunto al carrello");
+                  }}
+                >
+                  <span className="me-2">AGGIUNGI AL</span>
+                  <i className="bi bi-cart"></i>
+                </button>
+              </div>
             </Col>
           </Row>
         </>

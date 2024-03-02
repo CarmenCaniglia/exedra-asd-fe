@@ -62,9 +62,9 @@ const Abbonamenti = () => {
 
   return (
     <Container fluid className="abb-container">
-      <Row className="mx-3">
+      <Row className="mx-5">
         {abbonamenti.slice(0, 3).map((abbonamento, index) => (
-          <Col key={index} md={4} sm={12} className="mb-4">
+          <Col key={index} md={4} sm={12} className="mb-4 ">
             <Card className="class-card">
               <Card.Body className="d-flex flex-column align-items-center text-center">
                 <Card.Text className="abb-title">

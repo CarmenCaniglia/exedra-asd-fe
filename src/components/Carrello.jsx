@@ -39,13 +39,17 @@ const Carrello = () => {
           </ul>
         </Col>
         <Row className=" cart justify-content-center text-center mt-4">
-          <Col sm={12} className="titolo-shop fs-5 fw-bold mb-3 ms-4">
-            TOTALE:{" "}
-            {cart.reduce(
-              (acc, prodotto) => acc + parseFloat(prodotto.prezzo),
-              0
-            )}
-            €
+          <Col sm={12} className="d-flex fw-bold mb-3 ms-4">
+            <div className="totale-shop">
+              TOTALE:{" "}
+              {cart
+                .reduce((acc, prodotto) => acc + parseFloat(prodotto.prezzo), 0)
+                .toFixed(2)}
+              €
+            </div>
+            <button type="button" className="custom-btn2 ms-5 ">
+              CHECKOUT
+            </button>
           </Col>
         </Row>
       </Row>
