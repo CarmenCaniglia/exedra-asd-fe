@@ -27,7 +27,7 @@ html, body {
 
 
 .navbar-custom .nav-link:hover {
-  color: orange; 
+  color: #E57600; 
   transform: scale(1.05); 
 }
 

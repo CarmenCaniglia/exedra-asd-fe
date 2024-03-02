@@ -13,6 +13,10 @@ import Shop from "./components/Shop";
 import Carrello from "./components/Carrello";
 import Abbonamenti from "./components/Abbonamenti";
 import Footer from "./components/Footer";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 function App() {
   const [showRegister, setShowRegister] = useState(false);
@@ -25,24 +29,26 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App">
-        <MyNavbar
-          onRegisterClick={handleShowRegister}
-          onLoginClick={handleShowLogin}
-        />
-        <Register show={showRegister} handleClose={handleCloseRegister} />
-        <Login show={showLogin} handleClose={handleCloseLogin} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/admin-area" element={<AdminArea />} />
-          <Route path="/user-page" element={<UserPage />} />
-          <Route path="/corsi" element={<Corsi />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/cart" element={<Carrello />} />
-          <Route path="/abbonamenti" element={<Abbonamenti />} />
-        </Routes>
-        <Footer />
-      </div>
+      <Elements stripe={stripePromise}>
+        <div className="App">
+          <MyNavbar
+            onRegisterClick={handleShowRegister}
+            onLoginClick={handleShowLogin}
+          />
+          <Register show={showRegister} handleClose={handleCloseRegister} />
+          <Login show={showLogin} handleClose={handleCloseLogin} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/admin-area" element={<AdminArea />} />
+            <Route path="/user-page" element={<UserPage />} />
+            <Route path="/corsi" element={<Corsi />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/cart" element={<Carrello />} />
+            <Route path="/abbonamenti" element={<Abbonamenti />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Elements>
     </BrowserRouter>
   );
 }

@@ -18,6 +18,12 @@ const Abbonamenti = () => {
     dispatch(fetchAbbonamenti());
   }, [dispatch]);
 
+  const stripeUrls = {
+    MENSILE: "https://buy.stripe.com/test_7sIg2t4KidU3ahq144",
+    TRIMESTRALE: "https://buy.stripe.com/test_00g7vXfoWbLV4X6cMN",
+    ANNUALE: "https://buy.stripe.com/test_3cs6rTdgO4jt4X6146",
+  };
+
   const handleScegli = (tipoAbbonamento) => {
     const abbonamentoData = {
       tipoAbbonamento,
@@ -31,7 +37,15 @@ const Abbonamenti = () => {
     if (confermaAcquisto) {
       dispatch(salvaAbbonamento(abbonamentoData))
         .then(() => {
-          window.alert("Abbonamento associato con successo");
+          window.alert(
+            "Abbonamento associato con successo. Procedi al pagamento."
+          );
+          const url = stripeUrls[tipoAbbonamento];
+          if (url) {
+            window.open(url, "_blank");
+          } else {
+            console.error("URL non trovato per il tipo di abbonamento");
+          }
         })
         .catch((error) => {
           console.error(
