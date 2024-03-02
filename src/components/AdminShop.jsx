@@ -15,6 +15,7 @@ import {
   deleteProdotto,
   fetchProdotti,
   updateProdotto,
+  uploadImageAction,
 } from "../redux/actions/admin";
 
 const AdminShop = () => {
@@ -95,6 +96,21 @@ const AdminShop = () => {
     }
   };
 
+  const handleImageUpload = (prodottoId) => {
+    // Mostra un input file all'utente
+    const fileInput = document.createElement("input");
+    fileInput.setAttribute("type", "file");
+    fileInput.setAttribute("accept", "image/*");
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        // Dispatch dell'azione Redux per caricare l'immagine
+        dispatch(uploadImageAction(prodottoId, file));
+      }
+    };
+    fileInput.click();
+  };
+
   const items = [];
   for (let number = 1; number <= totalPages; number++) {
     items.push(
@@ -145,7 +161,10 @@ const AdminShop = () => {
                     <td>{prodotto.prezzo}</td>
                     <td className="descrizione">{prodotto.image}</td>
                     <td>
-                      <button className="admin-btn">
+                      <button
+                        className="admin-btn"
+                        onClick={() => handleImageUpload(prodotto.id)}
+                      >
                         <i className="bi bi-file-image"></i>
                       </button>
                       <button

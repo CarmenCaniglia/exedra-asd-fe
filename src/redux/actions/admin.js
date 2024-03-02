@@ -390,3 +390,41 @@ export const deleteProdotto = (id) => async (dispatch, getState) => {
     dispatch({ type: DELETE_PRODOTTO_FAILURE, payload: error.message });
   }
 };
+
+export const UPLOAD_IMAGE = "UPLOAD_IMAGE";
+export const UPLOAD_IMAGE_SUCCESS = "UPLOAD_IMAGE_SUCCESS";
+export const UPLOAD_IMAGE_FAILURE = "UPLOAD_IMAGE_FAILURE";
+
+export const uploadImageAction = (id, file) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: UPLOAD_IMAGE });
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const {
+        user: { token },
+      } = getState();
+
+      const response = await fetch(
+        `http://localhost:3001/prodotti/${id}/upload`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Errore nel caricamento dell'immagine");
+      }
+
+      const url = await response.text();
+      dispatch({ type: UPLOAD_IMAGE_SUCCESS, payload: url });
+    } catch (error) {
+      dispatch({ type: UPLOAD_IMAGE_FAILURE, payload: error.message });
+    }
+  };
+};

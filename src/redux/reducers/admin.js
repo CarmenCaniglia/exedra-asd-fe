@@ -283,6 +283,26 @@ const adminReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
+    case "UPLOAD_IMAGE_REQUEST":
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case "UPLOAD_IMAGE_SUCCESS":
+      // Aggiorna lo stato con l'URL dell'immagine caricata o altre azioni necessarie
+      return {
+        ...state,
+        loading: false,
+        // Aggiorna il prodotto con la nuova immagine, ad esempio
+      };
+    case "UPLOAD_IMAGE_FAILURE":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
     default:
       return state;
   }
