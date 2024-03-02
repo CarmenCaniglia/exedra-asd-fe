@@ -3,6 +3,7 @@ import { Col, Container, Nav, Row } from "react-bootstrap";
 import AdminUser from "./AdminUser";
 import AdminAbbonamenti from "./AdminAbbonamenti";
 import AdminCorsi from "./AdminCorsi";
+import AdminShop from "./AdminShop";
 
 const AdminArea = () => {
   const [activeSection, setActiveSection] = useState("utenti");
@@ -23,7 +24,7 @@ const AdminArea = () => {
         return <AdminCorsi />;
 
       case "shop":
-        return <div>Lista Prodotti</div>;
+        return <AdminShop />;
       default:
         return <div>Seleziona una sezione</div>;
     }

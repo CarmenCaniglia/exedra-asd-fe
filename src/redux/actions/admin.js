@@ -26,6 +26,19 @@ export const UPDATE_CORSO_SUCCESS = "UPDATE_CORSO_SUCCESS";
 export const UPDATE_CORSO_FAILURE = "UPDATE_CORSO_FAILURE";
 export const CREATE_CORSO_SUCCESS = "CREATE_CORSO_SUCCESS";
 export const DELETE_CORSO_SUCCESS = "DELETE_CORSO_SUCCESS";
+// GESTIONE SHOP
+export const FETCH_PRODOTTI = "FETCH_PRODOTTI";
+export const FETCH_PRODOTTI_SUCCESS = "FETCH_PRODOTTI_SUCCESS";
+export const FETCH_PRODOTTI_FAILURE = "FETCH_PRODOTTI_FAILURE";
+export const UPDATE_PRODOTTO = "UPDATE_PRODOTTO";
+export const UPDATE_PRODOTTO_SUCCESS = "UPDATE_PRODOTTO_SUCCESS";
+export const UPDATE_PRODOTTO_FAILURE = "UPDATE_PRODOTTO_FAILURE";
+export const CREATE_PRODOTTO = "CREATE_PRODOTTO";
+export const CREATE_PRODOTTO_SUCCESS = "CREATE_PRODOTTO_SUCCESS";
+export const CREATE_PRODOTTO_FAILURE = "CREATE_PRODOTTO_FAILURE";
+export const DELETE_PRODOTTO = "DELETE_PRODOTTO";
+export const DELETE_PRODOTTO_SUCCESS = "DELETE_PRODOTTO_SUCCESS";
+export const DELETE_PRODOTTO_FAILURE = "DELETE_PRODOTTO_FAILURE";
 
 export const fetchUtenti =
   (page = 0, size = 10) =>
@@ -64,7 +77,7 @@ export const fetchUtenti =
 export const updateUtente = (id, utenteData) => async (dispatch, getState) => {
   dispatch({ type: UPDATE_UTENTE });
   try {
-    const token = getState().user.token; // Assicurati di avere accesso al token come necessario
+    const token = getState().user.token;
     const response = await fetch(`http://localhost:3001/utenti/${id}`, {
       method: "PUT",
       headers: {
@@ -273,5 +286,107 @@ export const deleteCorso = (id) => async (dispatch, getState) => {
     dispatch({ type: DELETE_CORSO_SUCCESS, payload: id });
   } catch (error) {
     console.error("Errore nell'eliminazione del corso:", error);
+  }
+};
+
+// shop
+
+export const fetchProdotti =
+  (page = 0, size = 10, orderBy = "id") =>
+  async (dispatch, getState) => {
+    dispatch({ type: FETCH_PRODOTTI });
+    try {
+      const token = getState().user.token;
+      const res = await fetch(
+        `http://localhost:3001/prodotti?page=${page}&size=${size}&orderBy=${orderBy}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!res.ok) {
+        throw new Error("Errore nel recupero dei prodotti!");
+      }
+      const data = await res.json();
+      dispatch({
+        type: FETCH_PRODOTTI_SUCCESS,
+        payload: { prodotti: data.content, totalPages: data.totalPages },
+      });
+      console.log(data);
+    } catch (error) {
+      dispatch({
+        type: FETCH_PRODOTTI_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
+
+export const updateProdotto = (prodotto) => async (dispatch, getState) => {
+  dispatch({ type: UPDATE_PRODOTTO });
+  try {
+    const token = getState().user.token;
+    const res = await fetch(`http://localhost:3001/prodotti/${prodotto.id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(prodotto),
+    });
+    if (!res.ok) {
+      throw new Error("Errore durante l'aggiornamento del prodotto!");
+    }
+    const updatedProdotto = await res.json();
+    dispatch({ type: UPDATE_PRODOTTO_SUCCESS, payload: updatedProdotto });
+  } catch (error) {
+    dispatch({ type: UPDATE_PRODOTTO_FAILURE, payload: error.message });
+  }
+};
+
+export const createProdotto = (prodotto) => async (dispatch, getState) => {
+  dispatch({ type: CREATE_PRODOTTO });
+  try {
+    const token = getState().user.token;
+    const response = await fetch(`http://localhost:3001/prodotti`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(prodotto),
+    });
+
+    if (!response.ok) {
+      throw new Error("Errore durante la creazione del prodotto");
+    }
+
+    const newProdotto = await response.json();
+    dispatch({ type: CREATE_PRODOTTO_SUCCESS, payload: newProdotto });
+  } catch (error) {
+    dispatch({
+      type: CREATE_PRODOTTO_FAILURE,
+      payload: error.message,
+    });
+  }
+};
+
+export const deleteProdotto = (id) => async (dispatch, getState) => {
+  dispatch({ type: DELETE_PRODOTTO });
+  try {
+    const token = getState().user.token;
+    const res = await fetch(`http://localhost:3001/prodotti/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) {
+      throw new Error("Errore durante l'eliminazione del prodotto!");
+    }
+    dispatch({ type: DELETE_PRODOTTO_SUCCESS, payload: id });
+  } catch (error) {
+    dispatch({ type: DELETE_PRODOTTO_FAILURE, payload: error.message });
   }
 };

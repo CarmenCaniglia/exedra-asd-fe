@@ -81,7 +81,6 @@ const AdminCorsi = () => {
   };
 
   const handleDelete = (id) => {
-    // Mostra un dialogo di conferma prima di procedere
     const isConfirmed = window.confirm(
       "Sei sicuro di voler eliminare questo corso?"
     );

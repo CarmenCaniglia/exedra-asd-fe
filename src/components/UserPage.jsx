@@ -91,7 +91,7 @@ const UserPage = () => {
     <Container fluid className="user-page">
       {userData ? (
         <>
-          <Row className="">
+          <Row>
             <h1 className="titolo-shop">Ciao {userData.nome}</h1>
             <Col xs={12} md={6} lg={4}>
               <div className="user-card d-flex flex-column align-items-center text-center p-4">

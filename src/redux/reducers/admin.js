@@ -1,5 +1,11 @@
 import {
   CREATE_CORSO_SUCCESS,
+  CREATE_PRODOTTO,
+  CREATE_PRODOTTO_FAILURE,
+  CREATE_PRODOTTO_SUCCESS,
+  DELETE_PRODOTTO,
+  DELETE_PRODOTTO_FAILURE,
+  DELETE_PRODOTTO_SUCCESS,
   DELETE_UTENTE,
   DELETE_UTENTE_FAILURE,
   DELETE_UTENTE_SUCCESS,
@@ -9,6 +15,9 @@ import {
   FETCH_ADMIN_CORSI,
   FETCH_ADMIN_CORSI_FAILURE,
   FETCH_ADMIN_CORSI_SUCCESS,
+  FETCH_PRODOTTI,
+  FETCH_PRODOTTI_FAILURE,
+  FETCH_PRODOTTI_SUCCESS,
   FETCH_UTENTI,
   FETCH_UTENTI_FAILURE,
   FETCH_UTENTI_SUCCESS,
@@ -18,6 +27,9 @@ import {
   UPDATE_CORSO,
   UPDATE_CORSO_FAILURE,
   UPDATE_CORSO_SUCCESS,
+  UPDATE_PRODOTTO,
+  UPDATE_PRODOTTO_FAILURE,
+  UPDATE_PRODOTTO_SUCCESS,
   UPDATE_UTENTE,
   UPDATE_UTENTE_FAILURE,
   UPDATE_UTENTE_SUCCESS,
@@ -27,6 +39,7 @@ const initialState = {
   utenti: [],
   abbonamenti: [],
   corsi: [],
+  prodotti: [],
   loading: false,
   error: null,
   totalPages: 0,
@@ -183,6 +196,91 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
         corsi: state.corsi.filter((corso) => corso.id !== action.payload),
+      };
+
+    // shop
+    case FETCH_PRODOTTI:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case FETCH_PRODOTTI_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        prodotti: action.payload.prodotti,
+        totalPages: action.payload.totalPages,
+      };
+    case FETCH_PRODOTTI_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        prodotti: [],
+        error: action.payload,
+      };
+
+    case UPDATE_PRODOTTO:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case UPDATE_PRODOTTO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        prodotti: state.prodotti.filter(
+          (prodotto) => prodotto.id !== action.payload
+        ),
+        error: null,
+      };
+
+    case UPDATE_PRODOTTO_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case CREATE_PRODOTTO:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CREATE_PRODOTTO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        prodotti: [...state.prodotti, action.payload],
+      };
+
+    case CREATE_PRODOTTO_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case DELETE_PRODOTTO:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_PRODOTTO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        prodotti: state.prodotti.filter(
+          (prodotto) => prodotto.id !== action.payload
+        ),
+      };
+    case DELETE_PRODOTTO_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
 
     default:
