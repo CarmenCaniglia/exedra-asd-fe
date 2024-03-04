@@ -63,7 +63,7 @@ const HomeCorsi = () => {
             md={4}
             className="classi d-flex align-items-stretch"
           >
-            <div className="class-card d-flex flex-column align-items-center text-center p-4">
+            <div className="class-card d-flex flex-column align-items-center text-center p-4 ">
               <img
                 src={classe.imgPath}
                 alt={classe.nome}

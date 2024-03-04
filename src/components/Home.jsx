@@ -8,20 +8,20 @@ const Home = () => {
   return (
     <Container fluid>
       <Row className="section1 my-5 d-flex align-items-center justify-content-between">
-        <Col className="mb-3 mb-lg-0 d-flex justify-content-end">
+        <Col className="mb-3 mb-lg-0 d-flex justify-content-end fade-in-left">
           <img alt="trainer" src={image} className="img-fluid img-home" />
         </Col>
         <Col
           lg={6}
           md={12}
-          className="text-container d-flex flex-column  text-left"
+          className="text-container d-flex flex-column  text-left fade-in-right"
         >
           <p className="text align-self-end">IMPROVE YOUR FITNESS</p>
         </Col>
       </Row>
       <HomeCorsi />
-      <Galleria />
       <Trainer />
+      <Galleria />
     </Container>
   );
 };

@@ -49,7 +49,7 @@ const DettagliProdotto = ({ prodottoSelected }) => {
                     alert("Prodotto aggiunto al carrello");
                   }}
                 >
-                  <span className="ms-2 me-2">AGGIUNGI AL</span>
+                  <span className="ms-3 me-2 mt-1">AGGIUNGI AL</span>
                   <i className="bi bi-cart"></i>
                 </button>
               </div>

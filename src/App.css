@@ -97,24 +97,12 @@ h3{
   border-radius: 20px;
   box-shadow: -3px 5px 10px 0 #444242cf;
   cursor: pointer;
-}
-.custom-btn {
-  background-color: #E57600 ;
-  border: none ;
-  border-radius: 7px ; 
-  font-family: 'Special Elite', cursive ;
-  color: rgb(251, 250, 250) ; 
-  padding: 8px 13px ;
-  font-size: 1.5em ;
-  display: inline-flex; 
-  align-items: center;
-  justify-content: center;
+  
 }
 
-.custom-btn:hover {
-  background-color: #e06316 ; 
-}
 
+
+/* GALLERIA */
 .carousel-image{
   border-radius: 35px;
 }
@@ -146,6 +134,7 @@ h3{
   background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../src/assets/immagini/sala\ bw.jpg'); 
   background-size: auto;
   background-position: center;
+  background-attachment: fixed;
   z-index: -1;
 }
 
@@ -229,23 +218,6 @@ h3{
   font-size: 1.7em;
 }
 
- /* .custom-btn2 {
-  background-color: #E57600 ;
-  font-size: 1.2em !important;
-  border: none ;
-  border-radius: 7px ; 
-  font-family: 'Special Elite', cursive ;
-  color: rgb(251, 250, 250) ; 
-  padding: 6px 13px ;
-  font-size: 1.5em ;
-  display: inline-flex; 
-  align-items: center;
-  justify-content: center;
-} */
-
-/* .custom-btn2:hover {
-  background-color: #e06316 ; 
-} */
 
 .bn632-hover {
   width: 160px;
@@ -572,4 +544,99 @@ td{
   max-width: 0;
   padding-left: 1em !important;
   padding-right: 1em !important;
+}
+
+/* ANIMAZIONI */
+.fade-in-right {
+	-webkit-animation: fade-in-right 1.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-right 1.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+@-webkit-keyframes fade-in-right {
+  0% {
+    -webkit-transform: translateX(50px);
+            transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-right {
+  0% {
+    -webkit-transform: translateX(50px);
+            transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fade-in-left {
+	-webkit-animation: fade-in-left 1.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-left 1.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+          
+        }
+@-webkit-keyframes fade-in-left {
+  0% {
+    -webkit-transform: translateX(-50px);
+            transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-left {
+  0% {
+    -webkit-transform: translateX(-50px);
+            transform: translateX(-50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* MODALI */
+.modal .form-control:focus {
+  border-color: #fa9b36 !important; 
+  box-shadow: 0 0 0 .25rem rgba(239, 153, 61, 0.5) !important;
+}
+
+.modal .btn-secondary {
+  background-color: white !important;
+  border-color: #E57600 !important; 
+  color: #E57600 !important; 
+  margin-right: 1em !important;
+}
+
+
+
+.modal .btn-primary {
+  background-color: #E57600 !important; 
+  border-color: #E57600 !important; 
+  color: white !important;
+}
+
+.modal .btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px #E57600;
+}
+
+.modal .btn-secondary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px #E57600;
+}
+
+.modal-title {
+  font-family: 'Special Elite', cursive !important;
 }

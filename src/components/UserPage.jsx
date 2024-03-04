@@ -88,12 +88,12 @@ const UserPage = () => {
   };
 
   return (
-    <Container fluid className="user-page">
+    <Container className="user-page">
       {userData ? (
         <>
           <Row className="justify-content-lg-center justify-content-md-between">
             <h1 className="titolo-shop ms-5">Ciao {userData.nome}</h1>
-            <Col xs={12} md={6} lg={4}>
+            <Col xs={12}>
               <div className="user-card d-flex flex-column align-items-center text-center p-4">
                 <div className="position-relative user-image-container">
                   <img
@@ -131,7 +131,7 @@ const UserPage = () => {
             </Col>
 
             {userData.abbonamento && (
-              <Col xs={12} md={6} lg={4}>
+              <Col xs={12}>
                 <div className="abb-card d-flex flex-column align-items-center text-center p-4">
                   <h3 className="dettagli">Dettagli Abbonamento</h3>
                   <p className="abbonamento-info">
@@ -196,10 +196,10 @@ const UserPage = () => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" className="mt-3" onClick={handleClose}>
               Chiudi
             </Button>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" className="mt-3" type="submit">
               Salva Cambiamenti
             </Button>
           </Form>

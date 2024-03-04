@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal, ModalFooter } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginFailureAction, loginSuccessAction } from "../redux/actions";
@@ -48,7 +48,7 @@ const Login = ({ show, handleClose }) => {
       <Modal.Body>
         <Form onSubmit={handleLoginSubmit}>
           <Form.Group className="mb-3" controlId="loginEmail">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
               placeholder="Inserisci email"
@@ -76,6 +76,7 @@ const Login = ({ show, handleClose }) => {
           </Button>
         </Form>
       </Modal.Body>
+      <Modal.Footer></Modal.Footer>
     </Modal>
   );
 };
