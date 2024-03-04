@@ -53,7 +53,7 @@ const HomeCorsi = () => {
   };
 
   return (
-    <Container className="mb-5">
+    <Container className=" mb-5">
       <Row className="g-3">
         {classi.map((classe, index) => (
           <Col
@@ -77,7 +77,7 @@ const HomeCorsi = () => {
       </Row>
       <Row className="mt-3">
         <Col className="text-center">
-          <button onClick={goToCorsi} className="custom-btn mt-3">
+          <button onClick={goToCorsi} className="bn632-hover bn19 mt-3">
             TUTTI I CORSI
           </button>
         </Col>

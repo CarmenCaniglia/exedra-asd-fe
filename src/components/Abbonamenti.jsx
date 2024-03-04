@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAbbonamenti,
@@ -74,12 +74,12 @@ const Abbonamenti = () => {
                 <Card.Text className="prezzo-abb">
                   {abbonamento.prezzo} €
                 </Card.Text>
-                <Button
-                  className="custom-btn2"
+                <button
+                  className="bn632-hover bn19"
                   onClick={() => handleScegli(abbonamento.tipoAbbonamento)}
                 >
                   ACQUISTA
-                </Button>
+                </button>
               </Card.Body>
             </Card>
           </Col>

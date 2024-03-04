@@ -43,13 +43,13 @@ const DettagliProdotto = ({ prodottoSelected }) => {
               </div>
               <div>
                 <button
-                  className="custom-btn2 d-flex align-items-center "
+                  className="bn632-hover bn19 d-flex align-items-center "
                   onClick={() => {
                     dispatch(addToCartAction(prodottoSelected));
                     alert("Prodotto aggiunto al carrello");
                   }}
                 >
-                  <span className="me-2">AGGIUNGI AL</span>
+                  <span className="ms-2 me-2">AGGIUNGI AL</span>
                   <i className="bi bi-cart"></i>
                 </button>
               </div>

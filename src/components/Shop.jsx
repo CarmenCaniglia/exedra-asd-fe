@@ -16,7 +16,8 @@ const Shop = () => {
         <h1 className="titolo-shop">Scopri i nostri prodotti!</h1>
         <button
           onClick={() => navigate("/cart")}
-          className="custom-btn2 d-flex align-items-center"
+          style={{ width: "fit-content", padding: "1em" }}
+          className="bn632-hover bn19"
         >
           <i className="bi bi-cart"></i>
           <span className="ms-2">{cartLength}</span>
