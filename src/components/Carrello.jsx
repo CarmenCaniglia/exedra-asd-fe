@@ -47,7 +47,14 @@ const Carrello = () => {
                 .toFixed(2)}
               €
             </div>
-            <button type="button" className="custom-btn2 ms-5 ">
+            <button
+              type="button"
+              className="custom-btn2 ms-5 "
+              onClick={() =>
+                (window.location.href =
+                  "https://buy.stripe.com/test_dR6aI90u203d0GQ147")
+              }
+            >
               CHECKOUT
             </button>
           </Col>
