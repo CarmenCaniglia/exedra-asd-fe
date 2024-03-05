@@ -77,7 +77,7 @@ const HomeCorsi = () => {
       </Row>
       <Row className="mt-3">
         <Col className="text-center">
-          <button onClick={goToCorsi} className="bn632-hover bn19 mt-3">
+          <button onClick={goToCorsi} className="bn632-hover bn19 mt-3 mb-5">
             TUTTI I CORSI
           </button>
         </Col>
