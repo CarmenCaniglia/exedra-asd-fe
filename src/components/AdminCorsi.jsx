@@ -15,6 +15,8 @@ import {
   updateCorso,
 } from "../redux/actions/admin";
 import { useEffect, useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const AdminCorsi = () => {
   const dispatch = useDispatch();
@@ -27,6 +29,8 @@ const AdminCorsi = () => {
     giorno: "",
     maxPartecipanti: "",
   });
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [corsoToDelete, setCorsoToDelete] = useState(null);
 
   useEffect(() => {
     dispatch(fetchCorsi());
@@ -63,7 +67,7 @@ const AdminCorsi = () => {
       .then(() => {
         dispatch(fetchCorsi());
         setShowModal(false);
-        alert(
+        toast.success(
           corsoData.id
             ? "Corso aggiornato con successo!"
             : "Corso creato con successo!"
@@ -74,31 +78,31 @@ const AdminCorsi = () => {
           "Errore durante la creazione/aggiornamento del corso: ",
           error
         );
-        alert(
+        toast.error(
           "Si è verificato un errore durante la creazione/aggiornamento del corso!"
         );
       });
   };
 
-  const handleDelete = (id) => {
-    const isConfirmed = window.confirm(
-      "Sei sicuro di voler eliminare questo corso?"
-    );
-    if (isConfirmed) {
-      dispatch(deleteCorso(id))
+  const handleDeleteConfirmed = () => {
+    if (corsoToDelete) {
+      dispatch(deleteCorso(corsoToDelete))
         .then(() => {
-          alert("Corso eliminato con successo!");
-          dispatch(fetchCorsi()); // Rifetch l'elenco dei corsi dopo l'eliminazione
+          toast.success("Corso eliminato con successo!");
+          dispatch(fetchCorsi());
+          setShowDeleteConfirm(false);
         })
         .catch((error) => {
           console.error("Errore durante l'eliminazione del corso:", error);
-          alert("Si è verificato un errore durante l'eliminazione!");
+          toast.error("Si è verificato un errore durante l'eliminazione!");
         });
     }
+    setCorsoToDelete(null);
   };
 
   return (
     <Container>
+      <ToastContainer position="top-center" autoClose={2000} />
       <Row>
         <Col>
           <div className="d-flex align-items-baseline mb-4">
@@ -139,7 +143,10 @@ const AdminCorsi = () => {
                       </button>
                       <button
                         className="admin-btn"
-                        onClick={() => handleDelete(corso.id)}
+                        onClick={() => {
+                          setCorsoToDelete(corso.id);
+                          setShowDeleteConfirm(true);
+                        }}
                       >
                         <i className="bi bi-trash-fill"></i>
                       </button>
@@ -214,6 +221,26 @@ const AdminCorsi = () => {
               </Button>
               <Button variant="primary" onClick={handleSubmit}>
                 Salva Cambiamenti
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Modal
+            show={showDeleteConfirm}
+            onHide={() => setShowDeleteConfirm(false)}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Conferma Eliminazione</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Sei sicuro di voler eliminare questo corso?</Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => setShowDeleteConfirm(false)}
+              >
+                Annulla
+              </Button>
+              <Button variant="primary" onClick={handleDeleteConfirmed}>
+                Elimina
               </Button>
             </Modal.Footer>
           </Modal>

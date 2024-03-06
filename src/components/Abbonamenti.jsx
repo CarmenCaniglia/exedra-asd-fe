@@ -1,10 +1,12 @@
-import { useEffect } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAbbonamenti,
   salvaAbbonamento,
 } from "../redux/actions/abbonamenti";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const Abbonamenti = () => {
   const dispatch = useDispatch();
@@ -13,6 +15,9 @@ const Abbonamenti = () => {
     state.user.userData ? state.user.userData.id : null
   );
   const error = useSelector((state) => state.abbonamenti.error);
+
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [selectedAbbonamento, setSelectedAbbonamento] = useState(null);
 
   useEffect(() => {
     dispatch(fetchAbbonamenti());
@@ -25,36 +30,35 @@ const Abbonamenti = () => {
   };
 
   const handleScegli = (tipoAbbonamento) => {
-    const abbonamentoData = {
-      tipoAbbonamento,
-      userId,
-    };
+    setSelectedAbbonamento(tipoAbbonamento);
+    setShowConfirm(true);
+  };
 
-    const confermaAcquisto = window.confirm(
-      "Sei sicuro di voler acquistare questa tipologia di abbonamento?"
-    );
+  const handleConfermaAcquisto = () => {
+    if (selectedAbbonamento) {
+      const abbonamentoData = {
+        tipoAbbonamento: selectedAbbonamento,
+        userId,
+      };
 
-    if (confermaAcquisto) {
       dispatch(salvaAbbonamento(abbonamentoData))
         .then(() => {
-          window.alert(
-            "Abbonamento associato con successo. Procedi al pagamento."
-          );
-          const url = stripeUrls[tipoAbbonamento];
+          toast.success("Abbonamento associato con successo!");
+          setShowConfirm(false);
+          const url = stripeUrls[selectedAbbonamento];
           if (url) {
             window.open(url, "_blank");
           } else {
-            console.error("URL non trovato per il tipo di abbonamento");
+            toast.error("URL non trovato per il tipo di abbonamento");
           }
         })
         .catch((error) => {
-          console.error(
-            "Errore durante l'associazione dell'abbonamento:",
-            error
-          );
+          toast.error("Errore durante l'associazione dell'abbonamento:", error);
         });
     }
   };
+
+  const handleClose = () => setShowConfirm(false);
 
   if (error) {
     return <div>Errore nel caricamento degli abbonamenti: {error}</div>;
@@ -62,6 +66,19 @@ const Abbonamenti = () => {
 
   return (
     <Container fluid className="abb-container">
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{ marginTop: "70px" }}
+      />
       <Row className="mx-5">
         {abbonamenti.slice(0, 3).map((abbonamento, index) => (
           <Col key={index} md={4} sm={12} className="mb-4 ">
@@ -85,6 +102,22 @@ const Abbonamenti = () => {
           </Col>
         ))}
       </Row>
+      <Modal show={showConfirm} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Conferma Acquisto</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Sei sicuro di voler acquistare questa tipologia di abbonamento?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Annulla
+          </Button>
+          <Button variant="primary" onClick={handleConfermaAcquisto}>
+            Conferma
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

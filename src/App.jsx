@@ -15,6 +15,7 @@ import Abbonamenti from "./components/Abbonamenti";
 import Footer from "./components/Footer";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import "react-toastify/dist/ReactToastify.css";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 

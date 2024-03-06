@@ -17,6 +17,8 @@ import {
   updateProdotto,
   uploadImageAction,
 } from "../redux/actions/admin";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const AdminShop = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,8 @@ const AdminShop = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [editProdotto, setEditProdotto] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [prodottoToDelete, setProdottoToDelete] = useState(null);
 
   useEffect(() => {
     dispatch(fetchProdotti(currentPage));
@@ -52,7 +56,7 @@ const AdminShop = () => {
       .then(() => {
         dispatch(fetchProdotti(currentPage));
         setShowModal(false);
-        alert(
+        toast.success(
           editProdotto.id
             ? "Prodotto aggiornato con successo!"
             : "Prodotto creato con successo!"
@@ -63,7 +67,7 @@ const AdminShop = () => {
           "Errore durante la creazione/aggiornamento del prodotto: ",
           error
         );
-        alert(
+        toast.error(
           "Si è verificato un errore durante la creazione/aggiornamento del prodotto!"
         );
       });
@@ -79,21 +83,24 @@ const AdminShop = () => {
     setShowModal(true);
   };
 
-  const handleDelete = (id) => {
-    const isConfirmed = window.confirm(
-      "Sei sicuro di voler eliminare questo prodotto?"
-    );
-    if (isConfirmed) {
-      dispatch(deleteProdotto(id))
+  const handleDelete = (prodottoId) => {
+    setProdottoToDelete(prodottoId);
+    setShowDeleteConfirm(true);
+  };
+  const handleDeleteConfirmed = () => {
+    if (prodottoToDelete) {
+      dispatch(deleteProdotto(prodottoToDelete))
         .then(() => {
-          alert("Prodotto eliminato con successo!");
-          dispatch(fetchProdotti()); // Rifetch l'elenco dei prodotti dopo l'eliminazione
+          toast.success("Prodotto eliminato con successo!");
+          dispatch(fetchProdotti(currentPage));
+          setShowDeleteConfirm(false);
         })
         .catch((error) => {
-          console.error("Errore durante l'eliminazione del prodotto:", error);
-          alert("Si è verificato un errore durante l'eliminazione!");
+          console.error("Errore durante l'eliminazione del prodotto: ", error);
+          toast.error("Si è verificato un errore durante l'eliminazione!");
         });
     }
+    setProdottoToDelete(null);
   };
 
   const handleImageUpload = (prodottoId) => {
@@ -130,6 +137,11 @@ const AdminShop = () => {
 
   return (
     <Container>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        margin-top="100px"
+      />
       <Row>
         <Col>
           <div className="d-flex align-items-baseline mb-4">
@@ -261,6 +273,28 @@ const AdminShop = () => {
               </Button>
               <Button variant="primary" onClick={handleSubmit}>
                 Salva Cambiamenti
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Modal
+            show={showDeleteConfirm}
+            onHide={() => setShowDeleteConfirm(false)}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Conferma Eliminazione</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Sei sicuro di voler eliminare questo prodotto?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => setShowDeleteConfirm(false)}
+              >
+                Annulla
+              </Button>
+              <Button variant="primary" onClick={handleDeleteConfirmed}>
+                Elimina
               </Button>
             </Modal.Footer>
           </Modal>

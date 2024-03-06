@@ -15,6 +15,8 @@ import {
   Row,
   Table,
 } from "react-bootstrap";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const AdminUser = () => {
   const dispatch = useDispatch();
@@ -24,6 +26,13 @@ const AdminUser = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+
+  const handleShowDeleteConfirm = (utenteId) => {
+    setUserToDelete(utenteId);
+    setShowDeleteConfirm(true);
+  };
 
   useEffect(() => {
     dispatch(fetchUtenti(currentPage));
@@ -65,23 +74,37 @@ const AdminUser = () => {
       .then(() => {
         dispatch(fetchUtenti(currentPage)); // Rifetch dopo l'update
         handleCloseModal();
+        toast.success("Utente aggiornato con successo!");
       })
       .catch((error) => {
         console.error("Errore nell'aggiornamento dell'utente:", error);
+        toast.error(
+          "Si è verificato un errore durante l'aggiornamento dell'utente!"
+        );
       });
   };
 
-  const handleDelete = (id) => {
-    const confirmDelete = window.confirm(
-      "Sei sicuro di voler eliminare questo utente?"
-    );
-    if (confirmDelete) {
-      dispatch(deleteUtente(id));
+  const handleDelete = () => {
+    if (userToDelete) {
+      dispatch(deleteUtente(userToDelete))
+        .then(() => {
+          toast.success("Utente eliminato con successo!");
+          dispatch(fetchUtenti(currentPage));
+          setShowDeleteConfirm(false);
+          setUserToDelete(null);
+        })
+        .catch((error) => {
+          console.error("Errore durante l'eliminazione dell'utente: ", error);
+          toast.error(
+            "Si è verificato un errore durante l'eliminazione dell'utente!"
+          );
+        });
     }
   };
 
   return (
     <Container>
+      <ToastContainer />
       <Row>
         <Col>
           <h2 className="titolo-shop mb-4">Gestione Utenti</h2>
@@ -114,7 +137,7 @@ const AdminUser = () => {
                       </button>
                       <button
                         className="admin-btn"
-                        onClick={() => handleDelete(utente.id)}
+                        onClick={() => handleShowDeleteConfirm(utente.id)}
                       >
                         <i className=" bi bi-trash-fill"></i>
                       </button>
@@ -183,11 +206,30 @@ const AdminUser = () => {
               <Button variant="secondary" onClick={handleCloseModal}>
                 Chiudi
               </Button>
-              <Button
-                variant="primary"
-                onClick={() => handleSubmit(selectedUser)}
-              >
+              <Button variant="primary" onClick={() => handleSubmit()}>
                 Salva Modifiche
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Modal
+            show={showDeleteConfirm}
+            onHide={() => setShowDeleteConfirm(false)}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Conferma Eliminazione</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Sei sicuro di voler eliminare questo utente?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => setShowDeleteConfirm(false)}
+              >
+                Annulla
+              </Button>
+              <Button variant="primary" onClick={handleDelete}>
+                Elimina
               </Button>
             </Modal.Footer>
           </Modal>

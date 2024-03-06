@@ -56,7 +56,6 @@ const AdminArea = () => {
           </Col>
         </Row>
       </Nav>
-      {/* Render della sezione attiva */}
       <div>{renderSection()}</div>
     </Container>
   );

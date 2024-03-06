@@ -7,6 +7,8 @@ import {
   FormLabel,
   Modal,
 } from "react-bootstrap";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const Register = ({ show, handleClose }) => {
   const [email, setEmail] = useState("");
@@ -47,10 +49,10 @@ const Register = ({ show, handleClose }) => {
         setNome("");
         setCognome("");
         setRole("USER");
-        alert("Registrazione completata con successo!");
+        toast.success("Registrazione completata con successo!");
       })
       .catch((err) => {
-        alert(
+        toast.error(
           "Si è verificato un errore durante la registrazione: " + err.message
         );
       });
@@ -58,6 +60,7 @@ const Register = ({ show, handleClose }) => {
 
   return (
     <Modal show={show} onHide={handleClose}>
+      <ToastContainer position="top-center" autoClose={6000} />
       <Modal.Header closeButton>
         <Modal.Title>Registrazione</Modal.Title>
       </Modal.Header>

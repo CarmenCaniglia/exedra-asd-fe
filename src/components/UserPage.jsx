@@ -9,12 +9,15 @@ import {
 } from "../redux/actions";
 import { Form, Modal, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const UserPage = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [form, setForm] = useState({
     nome: "",
     cognome: "",
@@ -64,31 +67,33 @@ const UserPage = () => {
       .then(() => {
         dispatch(fetchUserData()); // Ri-fetch dei dati dell'utente
         handleClose();
-        alert("Dati aggiornati con successo!");
+        toast.success("Dati aggiornati con successo!");
       })
       .catch((error) => {
-        console.error("Errore nell'aggiornamento dei dati utente: ", error);
-        alert("Si è verificato un errore durante l'aggiornamento dei dati!");
+        toast.error(
+          "Si è verificato un errore durante l'aggiornamento dei dati: " +
+            error.message
+        );
       });
   };
   const handleDeleteUser = () => {
-    const isConfirmed = window.confirm(
-      "Sei sicuro di voler eliminare il tuo account? Non potrai più tornare indietro!"
-    );
-    if (isConfirmed) {
-      dispatch(deleteUser())
-        .then(() => {
-          dispatch(logoutAction());
-          navigate("/", { replace: true });
-        })
-        .catch((err) => {
-          console.error("Errore durante l'eliminzaione dell'account: ", err);
-        });
-    }
+    dispatch(deleteUser())
+      .then(() => {
+        dispatch(logoutAction());
+        navigate("/", { replace: true });
+        setShowDeleteConfirm(false); // Chiudi il modal dopo l'eliminazione
+      })
+      .catch((err) => {
+        toast.error(
+          "Errore durante l'eliminazione dell'account: " + err.message
+        );
+        setShowDeleteConfirm(false); // Chiudi il modal in caso di errore
+      });
   };
 
   return (
     <Container className="user-page">
+      <ToastContainer position="top-center" autoClose={2000} />
       {userData ? (
         <>
           <Row className="justify-content-lg-center justify-content-md-between">
@@ -123,7 +128,10 @@ const UserPage = () => {
                   <button onClick={handleShow} className="user-btn me-3">
                     <i className="bi bi-pencil-square"></i>
                   </button>
-                  <button onClick={handleDeleteUser} className="user-btn">
+                  <button
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="user-btn"
+                  >
                     <i className=" bi bi-trash-fill"></i>
                   </button>
                 </div>
@@ -204,6 +212,29 @@ const UserPage = () => {
             </Button>
           </Form>
         </Modal.Body>
+      </Modal>
+      <Modal
+        show={showDeleteConfirm}
+        onHide={() => setShowDeleteConfirm(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Conferma Eliminazione</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Sei sicuro di voler eliminare il tuo account? Non potrai più tornare
+          indietro!
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowDeleteConfirm(false)}
+          >
+            Annulla
+          </Button>
+          <Button variant="primary" onClick={handleDeleteUser}>
+            Elimina Account
+          </Button>
+        </Modal.Footer>
       </Modal>
     </Container>
   );

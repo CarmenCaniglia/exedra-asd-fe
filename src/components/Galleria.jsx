@@ -25,7 +25,7 @@ const images = [
 const Galleria = () => {
   return (
     <>
-      <Row className="mt-3 mb-3 galleria-bg justify-content-center">
+      <Row className=" mb-5 galleria-bg justify-content-center">
         <Col xs={12} md={10} lg={10} className="py-4">
           {" "}
           <Carousel fade className="carousel-3d ">
