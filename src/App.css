@@ -7,6 +7,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  overflow-x: hidden;
 }
 #root { 
   display: flex;
@@ -117,7 +118,7 @@ h3{
 .trainer-container {
   position: relative;
   z-index: 1;
-  margin-bottom: 15em;
+  margin-bottom: 11em;
 }
 .trainer{
   margin-bottom: -13rem;
@@ -708,3 +709,21 @@ td{
     opacity: 1;
   }
 }
+
+/* Modifica l'intera barra di scorrimento */
+::-webkit-scrollbar {
+  width: 8px;  /* Larghezza della barra di scorrimento */
+}
+
+/* Modifica la traccia (la parte "vuota" della barra) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;  /* Colore di sfondo della traccia */
+}
+
+/* Modifica il thumb (la parte mobile della barra) */
+::-webkit-scrollbar-thumb {
+  background: #E57600;
+  border-radius: 6px;  /* Colore di sfondo del thumb */
+}
+

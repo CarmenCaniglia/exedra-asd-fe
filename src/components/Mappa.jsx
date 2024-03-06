@@ -1,5 +1,6 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { Col, Row } from "react-bootstrap";
+import useIntersectionObserver from "./UseIntersectionObserver";
 
 const Mappa = () => {
   const center = { lat: 42.437103271484375, lng: 14.194849967956543 };
@@ -95,6 +96,13 @@ const Mappa = () => {
 
   const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
 
+  const [isVisible, ref] = useIntersectionObserver({
+    threshold: 0.5,
+  });
+  const [isVisibleContacts, refContacts] = useIntersectionObserver({
+    threshold: 0.5,
+  });
+
   const handleMarkerClick = () => {
     const url = `https://www.google.com/maps/?q=${center.lat},${center.lng}`;
     window.open(url, "_blank");
@@ -103,7 +111,7 @@ const Mappa = () => {
     <Row className="maps-container justify-content-center mb-4 ">
       <Col md={3} className="d-flex align-items-center justify-content-center">
         <LoadScript googleMapsApiKey={apiKey}>
-          <div className="scale-in-center">
+          <div ref={ref} className={isVisible ? "scale-in-center" : ""}>
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={center}
@@ -121,7 +129,10 @@ const Mappa = () => {
       </Col>
       <Col
         md={4}
-        className="contatti fade-in-right d-flex flex-column align-items-start justify-content-center"
+        ref={refContacts}
+        className={`contatti ${
+          isVisibleContacts ? "fade-in-right" : ""
+        } d-flex flex-column align-items-start justify-content-center`}
       >
         <h2 className="titolo-shop w-100 text-center mt-3 mb-5">CONTATTACI:</h2>
         <div className="contatti-text" style={{ flexGrow: 1 }}>
