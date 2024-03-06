@@ -710,20 +710,19 @@ td{
   }
 }
 
-/* Modifica l'intera barra di scorrimento */
 ::-webkit-scrollbar {
-  width: 8px;  /* Larghezza della barra di scorrimento */
+  width: 8px; 
 }
 
-/* Modifica la traccia (la parte "vuota" della barra) */
+
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 6px;  /* Colore di sfondo della traccia */
+  border-radius: 6px; 
 }
 
-/* Modifica il thumb (la parte mobile della barra) */
+
 ::-webkit-scrollbar-thumb {
   background: #E57600;
-  border-radius: 6px;  /* Colore di sfondo del thumb */
+  border-radius: 6px;  
 }
 
