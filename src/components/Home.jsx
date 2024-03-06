@@ -3,6 +3,7 @@ import image from "../assets/immagini/home1remove.png";
 import HomeCorsi from "./HomeCorsi";
 import Galleria from "./Galleria";
 import Trainer from "./Trainer";
+import Mappa from "./Mappa";
 
 const Home = () => {
   return (
@@ -22,6 +23,7 @@ const Home = () => {
       <HomeCorsi />
       <Trainer />
       <Galleria />
+      <Mappa />
     </Container>
   );
 };

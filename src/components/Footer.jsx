@@ -17,20 +17,20 @@ const Footer = () => {
             </p>
             <div>
               <a
-                href="https://www.facebook.com/palestraexedra"
+                href="https://www.linkedin.com/in/carmen-caniglia-webdeveloper/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-icon"
               >
-                <i className="bi bi-facebook me-2"></i>
+                <i className="bi bi-linkedin me-2"></i>
               </a>
               <a
-                href="https://www.instagram.com/palestra_exedra_fitness_danza/"
+                href="https://github.com/CarmenCaniglia"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-icon"
               >
-                <i className="bi bi-instagram"></i>
+                <i className="bi bi-github"></i>
               </a>
             </div>
           </Col>
