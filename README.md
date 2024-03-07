@@ -22,17 +22,20 @@ JWT: Implementati per gestire l'autenticazione e mantenere la sicurezza delle se
 Sicurezza delle Password: Le password sono protette utilizzando algoritmi di hashing e salting per prevenire accessi non autorizzati.
 
 INSTALLAZIONE 📥
-Per installare e avviare GymManagerApp, segui questi passaggi:
+Per installare e avviare Exedra asd, segui questi passaggi:
 
 bash
 Copy code
 git clone https://github.com/CarmenCaniglia/exedra-asd-fe.git
 cd Exedra-asd
-# Installa le dipendenze
+
+Installa le dipendenze
 npm install
-# Avvia l'applicazione (frontend)
+
+Avvia l'applicazione (frontend)
 npm run dev
-# In un altro terminale, avvia il server backend
+
+In un altro terminale, avvia il server backend
 cd backend
 ./gradlew bootRun
 
